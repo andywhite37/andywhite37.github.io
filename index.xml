@@ -6,10 +6,19 @@
     <description>Recent content on Andy White</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Nov 2019 13:31:20 -0600</lastBuildDate>
+    <lastBuildDate>Fri, 01 Nov 2019 17:50:46 -0600</lastBuildDate>
     
 	<atom:link href="https://andywhite.xyz/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Functors in ReasonML</title>
+      <link>https://andywhite.xyz/blog/functors-in-reasonml/</link>
+      <pubDate>Fri, 01 Nov 2019 17:50:46 -0600</pubDate>
+      
+      <guid>https://andywhite.xyz/blog/functors-in-reasonml/</guid>
+      <description>Hello</description>
+    </item>
     
     <item>
       <title>Projects</title>
