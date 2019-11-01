@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blogs on Andy White</title>
-    <link>https://andywhite37.github.io/blog/</link>
+    <link>https://andywhite.xyz/blog/</link>
     <description>Recent content in Blogs on Andy White</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 31 Oct 2019 21:11:53 -0600</lastBuildDate>
     
-	<atom:link href="https://andywhite37.github.io/blog/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://andywhite.xyz/blog/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>My First Post</title>
-      <link>https://andywhite37.github.io/blog/my-first-post/</link>
+      <link>https://andywhite.xyz/blog/my-first-post/</link>
       <pubDate>Thu, 31 Oct 2019 21:11:53 -0600</pubDate>
       
-      <guid>https://andywhite37.github.io/blog/my-first-post/</guid>
+      <guid>https://andywhite.xyz/blog/my-first-post/</guid>
       <description> H1 H2 H3 H4 H5 H6 Some content
 😄
 module List = { type t(&amp;#39;a) = list(&amp;#39;a); let map = Belt.List.map; module Functor: FUNCTOR with type t(&amp;#39;a) = t(&amp;#39;a) = { type nonrec t(&amp;#39;a) = t(&amp;#39;a); let map = map; }; };</description>
