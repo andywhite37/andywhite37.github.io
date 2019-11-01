@@ -17,7 +17,7 @@
       <pubDate>Thu, 31 Oct 2019 21:11:53 -0600</pubDate>
       
       <guid>https://andywhite37.github.io/blog/my-first-post/</guid>
-      <description> My title Some content
+      <description> H1 H2 H3 H4 H5 H6 Some content
 😄
 module List = { type t(&amp;#39;a) = list(&amp;#39;a); let map = Belt.List.map; module Functor: FUNCTOR with type t(&amp;#39;a) = t(&amp;#39;a) = { type nonrec t(&amp;#39;a) = t(&amp;#39;a); let map = map; }; };</description>
     </item>
