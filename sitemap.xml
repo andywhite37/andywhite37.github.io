@@ -3,6 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://andywhite.xyz/blog/2019-11-01-a-laymans-guide-to-functors-in-reasonml/</loc>
+    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://andywhite.xyz/</loc>
     <lastmod>2019-11-01T17:50:46-06:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -11,13 +18,6 @@
   
   <url>
     <loc>https://andywhite.xyz/blog/</loc>
-    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://andywhite.xyz/blog/functors-in-reasonml/</loc>
     <lastmod>2019-11-01T17:50:46-06:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -38,14 +38,29 @@
   </url>
   
   <url>
-    <loc>https://andywhite.xyz/blog/my-first-post/</loc>
+    <loc>https://andywhite.xyz/categories/</loc>
     <lastmod>2019-10-31T21:11:53-06:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://andywhite.xyz/categories/</loc>
+    <loc>https://andywhite.xyz/categories/functional-programming/</loc>
+    <lastmod>2019-10-31T21:11:53-06:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://andywhite.xyz/blog/2019-10-31-hello-world/</loc>
+    <lastmod>2019-10-31T21:11:53-06:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://andywhite.xyz/categories/software-development/</loc>
+    <lastmod>2019-10-31T21:11:53-06:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

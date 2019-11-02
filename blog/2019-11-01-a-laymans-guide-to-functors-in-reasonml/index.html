@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Andy White">
+    <meta name="description" content="Andy White&#39;s personal website">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="A Layman&#39;s Guide to Functors in ReasonML"/>
+<meta name="twitter:description" content="This is a WIP
+In my previous post I talked about my background and how I started on my journey to learn typed functional programming. I&rsquo;ll again preface these posts with a note that I don&rsquo;t have a background in category theory, so these posts are intended to help introduce things from a boots-on-the-ground perspective. Please feel free to correct me on any points I mess up.
+Functors In this post, I would like to talk about functors - not OCaml/ReasonML module functors, but functors as they relate to the map function."/>
+
+    <meta property="og:title" content="A Layman&#39;s Guide to Functors in ReasonML" />
+<meta property="og:description" content="This is a WIP
+In my previous post I talked about my background and how I started on my journey to learn typed functional programming. I&rsquo;ll again preface these posts with a note that I don&rsquo;t have a background in category theory, so these posts are intended to help introduce things from a boots-on-the-ground perspective. Please feel free to correct me on any points I mess up.
+Functors In this post, I would like to talk about functors - not OCaml/ReasonML module functors, but functors as they relate to the map function." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://andywhite.xyz/blog/2019-11-01-a-laymans-guide-to-functors-in-reasonml/" />
+<meta property="article:published_time" content="2019-11-01T17:50:46-06:00" />
+<meta property="article:modified_time" content="2019-11-01T17:50:46-06:00" />
+
+
+    
+      <base href="https://andywhite.xyz/blog/2019-11-01-a-laymans-guide-to-functors-in-reasonml/">
+    
+    <title>
+  A Layman&#39;s Guide to Functors in ReasonML · Andy White
+</title>
+
+    
+      <link rel="canonical" href="https://andywhite.xyz/blog/2019-11-01-a-laymans-guide-to-functors-in-reasonml/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    
+      
+      
+      <link rel="stylesheet" href="https://andywhite.xyz/css/coder.min.28d751104f30c16da1aa1bb04015cbe662cacfe0d1b01af4f2240ad58580069c.css" integrity="sha256-KNdREE8wwW2hqhuwQBXL5mLKz&#43;DRsBr08iQK1YWABpw=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+
+    
+    
+    <link rel="icon" type="image/png" href="https://andywhite.xyz/images/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://andywhite.xyz/images/favicon-16x16.png" sizes="16x16">
+
+    <meta name="generator" content="Hugo 0.58.3" />
+  </head>
+
+  <body class=" ">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://andywhite.xyz/">
+      Andy White
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="https://andywhite.xyz/blog/">Blog</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="https://andywhite.xyz/projects/">Projects</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="https://andywhite.xyz/about/">About</a>
+          </li>
+        
+      
+      
+    </ul>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container page">
+  <article>
+    <header>
+      <h1>A Layman&#39;s Guide to Functors in ReasonML</h1>
+    </header>
+
+    
+
+<p><strong>This is a WIP</strong></p>
+
+<p>In <a href="https://andywhite.xyz/blog/2019-10-31-hello-world">my previous post</a> I talked about my
+background and how I started on my journey to learn typed functional
+programming. I&rsquo;ll again preface these posts with a note that I don&rsquo;t have a
+background in category theory, so these posts are intended to help introduce
+things from a boots-on-the-ground perspective. Please feel free to correct me
+on any points I mess up.</p>
+
+<h1 id="functors">Functors</h1>
+
+<p>In this post, I would like to talk about functors - not <a href="https://v1.realworldocaml.org/v1/en/html/functors.html">OCaml/ReasonML
+module functors</a>, but
+functors as they relate to the <code>map</code> function. I would wager that most
+software developers have probably used a <code>map</code> function for lists or arrays,
+and probably used a map-like function when dealing with asynchronous types
+like <code>Future</code> or <code>Promise</code>, to convert a value of some type <code>A</code> to a value of
+some other type <code>B</code>. If you&rsquo;re lucky, you&rsquo;ve used <code>map</code> on a type like
+<code>Option</code>, <code>Maybe</code>, <code>Either</code> or <code>Result</code>. If you&rsquo;re really blessed, maybe
+you&rsquo;ve used it in something like a JSON decoder function to transform a
+decoded number into some other type.</p>
+
+<h1 id="reasonml-a-quick-aside">ReasonML - a quick aside</h1>
+
+<p>I&rsquo;m going to use the language <a href="https://reasonml.github.io">ReasonML</a> for
+these posts, not because it&rsquo;s the most powerful language around (it&rsquo;s not),
+but because it provides an interesting platform on which to build up some
+examples. If you&rsquo;re not familiar with ReasonML, it&rsquo;s basically an alternative
+syntax for the programming language <a href="https://ocaml.org">OCaml</a>. The ReasonML
+programming language can be losslessly translated to OCaml and vice-versa,
+because the two langauges share the same <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">abstract syntax tree
+(AST)</a> - the data
+structure that represents the parsed code.</p>
+
+<p>One of the reasons ReasonML was created was to provide a syntax that would be
+more familiar to developers coming from JavaScript/ECMAScript. ReasonML has a
+few different compilers which are able to produce JavaScript as a &ldquo;backend,&rdquo;
+meaning that it can transpile ReasonML (or OCaml) code to JavaScript, for use
+in the browser, or in Node.js, for example. The compiler I most use at the
+moment is called <a href="https://bucklescript.github.io/en/">BuckleScript</a> - which
+is actually an OCaml to JS compiler. To make it work with ReasonML, you use a
+separate tool to translate the ReasonML code to OCaml code before compiling
+it with the BuckleScript compiler to produce the JavaScript output, which you
+then have to bundle with a tool like <a href="https://webpack.js.org">Webpack
+😱</a>, <a href="https://parceljs.org">Parcel</a>,
+<a href="https://rollupjs.org/guide/en/">Rollup</a> or whatever the latest
+<em>so hot right now</em> bundler happens to be in the JavaScript community.</p>
+
+<p>The workflow is basically:</p>
+
+<ol>
+<li>Write ReasonML code</li>
+<li>Convert ReasonML code to OCaml</li>
+<li>Compile OCaml code with Bucklescript to produce JavaScript code</li>
+<li>Bundle JavaScript code to produce something you can use on the web or in Node.js</li>
+</ol>
+
+<p>If this sounds a little crazy to you, you&rsquo;re right, it is a little crazy.
+However steps 2 and 3 kind of happen at the same time by the same tool, and
+the BuckleScript compiler is blazingly fast, so if you&rsquo;re writing ReasonML, you
+really don&rsquo;t see OCaml code at all, and the JavaScript that comes out the
+other end is quite readable and usually pretty optimized. Overall, there is
+some weight of tooling with this, but the installation of these tools have
+been mostly ironed out, and are improving each day.</p>
+
+<p>As a side note, you can also compile ReasonML code to native code using the
+native OCaml compiler and tools like <a href="https://esy.sh">esy</a> or
+<a href="https://github.com/ocaml/dune">dune</a>. I don&rsquo;t have any experience with these
+native tools, so I won&rsquo;t say anymore about that.</p>
+
+<h1 id="shameless-plug">Shameless plug</h1>
+
+<p>As a side note, I currently work on a set of libraries for
+ReasonML/BuckleScript in the <a href="https://github.com/reazen">Reazen GitHub org</a>.
+Our core &ldquo;standard library replacement&rdquo; library is called
+<a href="https://github.com/reazen/relude">Relude</a>, and there are a growing number of
+other libraries built on top of Relude. Many of the ideas from these blog
+posts can be seen in action in Relude, and it&rsquo;s underlying library
+<a href="https://github.com/Risto-Stevcev/bs-abstract">bs-abstract</a>, so check them
+out if you are interested.</p>
+
+<h1 id="back-to-functors">Back to functors</h1>
+
+<p>To jump right in, I&rsquo;m going to introduce one way to represent a functor in
+ReasonML and then go from there. In ReasonML, we have the concept of
+<a href="https://ocaml.org/learn/tutorials/modules.html">modules</a>, which is a
+fundamental and first-class structure in the language. You can sort of think
+of modules as being structural and organizational, like a namespace, but
+modules can also be passed to functions as a first-class construct in the
+language. You can construct modules from other modules using <a href="https://v1.realworldocaml.org/v1/en/html/functors.html">module
+functors</a>, but as a
+reminder, these are not the functors we&rsquo;re talking about in this blog. You
+can also create <a href="https://ocaml.org/learn/tutorials/modules.html">module
+types</a>, which sort of act as
+a way to describe an &ldquo;interface&rdquo; for a module. If none of these words mean
+anything to you, I&rsquo;d recommend reading some more about OCaml or ReasonML
+modules before continuing, otherwise this might quickly become confusing and
+unfamiliar.</p>
+
+<p>A functor has a couple key properties which we can encode in ReasonML using a
+module type. One key aspect of a functor is that it deals with types that
+have a single type parameter, e.g.</p>
+
+<ul>
+<li><code>list('a)</code></li>
+<li><code>array('a)</code></li>
+<li><code>option('a)</code>,</li>
+<li><code>Js.Promise.t('a)</code></li>
+<li><code>Belt.Result.t('a, fixedErrorType)</code> if the error type is fixed to a known type</li>
+<li>and many others, both generic and domain-specific</li>
+</ul>
+
+<p>In general, we&rsquo;ll just call types of this form <code>t('a)</code>.</p>
+
+<p>The next aspect of a functor is that it must support a <code>map</code> function with
+the following type:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> map <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">,</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">))</span> <span style="color:#f92672">=&gt;</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">);</span></code></pre></div>
+<p>Basically, <code>map</code> is a function that accepts an <code>'a =&gt; 'b</code> function to convert
+a value of type <code>'a</code> to a value of type <code>'b</code>, a value of type <code>t('a)</code>, and
+returns to you a value of type <code>t('b)</code>.</p>
+
+<p>Another way to look at <code>map</code> is that it takes a function of type <code>'a =&gt; 'b</code>
+and returns to you a function of type <code>t('a) =&gt; t('b)</code>.</p>
+
+<p>The order of the arguments doesn&rsquo;t really matter, and neither does the name
+of the function - the important part is the types of the arguments and return
+value. We could use this type instead, and it&rsquo;s the same thing:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> foo <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">),</span> <span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">)</span> <span style="color:#f92672">=&gt;</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">);</span></code></pre></div>
+<h1 id="aside-on-names">Aside on names</h1>
+
+<p>A very common complaint about learning functional programming is that the
+names of things just don&rsquo;t really have much semantic meaning at all. Many of
+the names come from cateogry theory and abstract algebra, and sometimes the
+mathemeticians who discovered or developed the concepts. I&rsquo;ve seen lots of
+posts and comments on the internet about how we should call this thing
+<code>Mappable</code> rather than <code>Functor</code>, because <code>Mappable</code> has a more intuitive and
+semantic meaning. This is a fair complaint, but it starts to break down a bit
+when we start to get into more abstract and powerful concepts.</p>
+
+<p>The most important aspect of a name is that it gives us a way to refer to a
+concept in its entirety using one or two distinct words. The same argument
+for a common language was made in the well-respected OO <a href="https://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/ref=sr_1_3?keywords=design+patterns&amp;qid=1572666058&amp;sr=8-3">Design
+Patterns</a>
+book.</p>
+
+<p>There was once a time where the word &ldquo;Integer&rdquo; probably didn&rsquo;t mean anything
+to you, but as you learned about the definition of an integers, and what you
+can do with them, the abstract name became associated with the concrete
+concept, and now we use the term <code>int</code> without a second thought, knowing
+exactly what it is. I would go so far to say that something that was once
+completely unknown is now viewed by most as simple and obvious. Someone might
+have proposed that we call these things &ldquo;Addables&rdquo; or &ldquo;Operatables&rdquo; or
+whatever to give it a more semantic name, but ultimately, once you learn what
+the name denotes, the name really doesn&rsquo;t end up mattering anymore, and it&rsquo;s
+often more difficult to capture the full semantics in a single semantic name
+anyway.</p>
+
+<p>This is not to say that names don&rsquo;t matter, but it&rsquo;s quite common in FP for
+concepts to have abstract names, and some functions to have opaque operators
+which will require some learning and patience. It&rsquo;s something that you&rsquo;ll
+have to get used to.</p>
+
+<h1 id="functor-laws">Functor laws</h1>
+
+<p>We now know that a functor deals with a type <code>t('a)</code> and has a function <code>map</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">type</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">);</span>
+<span style="color:#66d9ef">let</span> map<span style="color:#f92672">:</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">,</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">))</span> <span style="color:#f92672">=&gt;</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">);</span></code></pre></div>
+<p>There are two additional things that we must satisfy in order for something to
+be considered a valid functor - the &ldquo;functor laws.&rdquo;</p>
+
+<h2 id="first-functor-law-structure-preserving-map">First functor law - structure preserving map</h2>
+
+<p>The first law requires that the <code>map</code> function cannot change the structure of
+the data type - it can only change the values contained within the functor
+using the <code>'a =&gt; 'b</code> function. This is sometimes called a
+&ldquo;structure-preserving&rdquo; map operation.</p>
+
+<p>The first functor law can be written like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">//</span> <span style="color:#a6e22e">The</span> identity <span style="color:#66d9ef">function</span> <span style="color:#f92672">-</span> simply returns the <span style="color:#66d9ef">value</span> given <span style="color:#66d9ef">as</span> the argument
+<span style="color:#66d9ef">let</span> id <span style="color:#f92672">=</span> a <span style="color:#f92672">=&gt;</span> a<span style="color:#f92672">;</span>
+
+<span style="color:#f92672">//</span> <span style="color:#a6e22e">The</span> <span style="color:#f92672">===</span> here just means these things must be the same
+map<span style="color:#f92672">(</span>id<span style="color:#f92672">,</span> fa<span style="color:#f92672">)</span> <span style="color:#f92672">===</span> fa<span style="color:#f92672">;</span></code></pre></div>
+<p>Basically if you map the identity function over your functor, you should get
+back your functor completely unchanged, both in content and structure. In
+concrete terms, the <code>list('a)</code> <code>map</code> function is not allowed to shuffle
+things around, copy values, lengthen, nor shorten the list, etc.</p>
+
+<p>This concept is important, because if you have a valid functor, you can be
+confident that the <code>map</code> operation will only apply the given function to each
+value contained in your functor, and will not change the structure of your
+data type.</p>
+
+<h2 id="second-functor-law-composition">Second functor law - composition</h2>
+
+<p>The second functor law has to do with function composition. Basically, if you have
+a functor <code>t('a)</code>, and two functions that you&rsquo;d like to map:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">//</span> <span style="color:#a6e22e">Our</span> input <span style="color:#66d9ef">functor</span> <span style="color:#e6db74">&#34;fa&#34;</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">functor</span> <span style="color:#66d9ef">of</span> a<span style="color:#f92672">)</span>
+<span style="color:#66d9ef">let</span> fa<span style="color:#f92672">:</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#f92672">...;</span>
+
+<span style="color:#f92672">//</span> <span style="color:#a6e22e">Our</span> two functions that we want <span style="color:#66d9ef">to</span> map over our <span style="color:#66d9ef">functor</span>
+<span style="color:#66d9ef">let</span> aToB<span style="color:#f92672">:</span> <span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>b <span style="color:#f92672">=</span> <span style="color:#f92672">...;</span>
+<span style="color:#66d9ef">let</span> bToC<span style="color:#f92672">:</span> <span style="color:#66d9ef">&#39;</span>b <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>c <span style="color:#f92672">=</span> <span style="color:#f92672">...;</span>
+
+<span style="color:#f92672">//</span> <span style="color:#a6e22e">Our</span> <span style="color:#66d9ef">functor</span> map <span style="color:#66d9ef">function</span>
+<span style="color:#66d9ef">let</span> map<span style="color:#f92672">:</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">,</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">))</span> <span style="color:#f92672">=&gt;</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#f92672">...;</span></code></pre></div>
+<p>Let&rsquo;s now create two specialized map functions by <a href="https://en.wikipedia.org/wiki/Partial_application">partially
+applying</a> our <code>aToB</code> and
+<code>bToC</code> functions to <code>map</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">//</span> <span style="color:#a6e22e">Create</span> our specialized map functions by locking <span style="color:#66d9ef">in</span> the mapping functions<span style="color:#f92672">,</span> <span style="color:#f92672">and</span> leaving
+<span style="color:#f92672">//</span> the <span style="color:#66d9ef">functor</span> argument <span style="color:#f92672">`</span>t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)`</span> <span style="color:#66d9ef">open</span><span style="color:#f92672">.</span>
+
+<span style="color:#66d9ef">let</span> mapAToB<span style="color:#f92672">:</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=&gt;</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> map<span style="color:#f92672">(</span>aToB<span style="color:#f92672">);</span>
+<span style="color:#66d9ef">let</span> mapBToC<span style="color:#f92672">:</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">)</span> <span style="color:#f92672">=&gt;</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>c<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> map<span style="color:#f92672">(</span>bToC<span style="color:#f92672">);</span></code></pre></div>
+<p>This is an example of &ldquo;lifting&rdquo; our pure <code>'a =&gt; 'b</code> functions into the functor context <code>t('a) =&gt; t('b)</code>.</p>
+
+<p>Now let&rsquo;s compose these two functions to create a function from <code>t('a) =&gt; t('c)</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">//</span> andThen is our <span style="color:#66d9ef">function</span> composition <span style="color:#66d9ef">function</span>
+<span style="color:#f92672">//</span> <span style="color:#a6e22e">Takes</span> a <span style="color:#66d9ef">function</span> <span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">=&gt;</span> b <span style="color:#f92672">and</span> a <span style="color:#66d9ef">function</span> <span style="color:#66d9ef">&#39;</span>b <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>c <span style="color:#f92672">and</span> returns a <span style="color:#66d9ef">function</span> <span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>c
+
+<span style="color:#66d9ef">let</span> andThen<span style="color:#f92672">:</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">,</span> <span style="color:#66d9ef">&#39;</span>b <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>c<span style="color:#f92672">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>c<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>aToB<span style="color:#f92672">,</span> bToC<span style="color:#f92672">)</span> <span style="color:#f92672">=&gt;</span> a <span style="color:#f92672">=&gt;</span> bToC<span style="color:#f92672">(</span>aToB<span style="color:#f92672">(</span>a<span style="color:#f92672">));</span>
+
+<span style="color:#f92672">//</span> <span style="color:#a6e22e">Compose</span> our two specialized <span style="color:#f92672">`</span>mapAToB<span style="color:#f92672">`</span> <span style="color:#f92672">and</span> <span style="color:#f92672">`</span>mapBToC<span style="color:#f92672">`</span> functions <span style="color:#66d9ef">to</span> 
+
+<span style="color:#66d9ef">let</span> mapAToC<span style="color:#f92672">:</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=&gt;</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> andThen<span style="color:#f92672">(</span>mapAToB<span style="color:#f92672">,</span> mapBToC<span style="color:#f92672">);</span>
+
+<span style="color:#f92672">//</span> <span style="color:#a6e22e">You</span> can also write this like<span style="color:#f92672">:</span>
+
+<span style="color:#66d9ef">let</span> mapAToC<span style="color:#f92672">:</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=&gt;</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> fa <span style="color:#f92672">=&gt;</span> fa <span style="color:#f92672">|&gt;</span> mapAToB <span style="color:#f92672">|&gt;</span> mapBToC<span style="color:#f92672">;</span></code></pre></div>
+<p>Ok, so we&rsquo;ve composed our two specialed map functions into a specialized map function that
+does both map operations.  Now let&rsquo;s try composing our <code>'a =&gt; 'b</code> and <code>'b =&gt; 'c</code> functions:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">//</span> <span style="color:#a6e22e">Compose</span> our two pure functions <span style="color:#66d9ef">to</span> create a <span style="color:#66d9ef">function</span> <span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>c
+
+<span style="color:#66d9ef">let</span> aToC<span style="color:#f92672">:</span> <span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>c <span style="color:#f92672">=</span> andThen<span style="color:#f92672">(</span>aToB<span style="color:#f92672">,</span> bToC<span style="color:#f92672">);</span>
+
+<span style="color:#f92672">//</span> <span style="color:#a6e22e">Now</span> we can create a specialized mapAToC <span style="color:#66d9ef">function</span> using this<span style="color:#f92672">:</span>
+
+<span style="color:#66d9ef">let</span> mapAToC<span style="color:#f92672">:</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=&gt;</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>c<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> map<span style="color:#f92672">(</span>aToC<span style="color:#f92672">);</span></code></pre></div>
+<p>The second law states that these two specialized <code>mapAToC</code> functions must be equal.
+In other words:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">//</span> map from <span style="color:#66d9ef">&#39;</span>a <span style="color:#66d9ef">to</span> <span style="color:#66d9ef">&#39;</span>c by <span style="color:#a6e22e">Composing</span> the specialized map functions
+
+<span style="color:#66d9ef">let</span> mapAToC_1<span style="color:#f92672">:</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=&gt;</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>c<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> andThen<span style="color:#f92672">(</span>map<span style="color:#f92672">(</span>aToB<span style="color:#f92672">),</span> map<span style="color:#f92672">(</span>bToC<span style="color:#f92672">));</span>
+
+<span style="color:#f92672">//</span> map from <span style="color:#66d9ef">&#39;</span>a <span style="color:#66d9ef">to</span> <span style="color:#66d9ef">&#39;</span>c by mapping a composed map <span style="color:#66d9ef">function</span>
+
+<span style="color:#66d9ef">let</span> mapAToC_2<span style="color:#f92672">:</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=&gt;</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>c<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> map<span style="color:#f92672">(</span>andThen<span style="color:#f92672">(</span>aToB<span style="color:#f92672">,</span> bToC<span style="color:#f92672">));</span>
+
+mapAToC_1 <span style="color:#f92672">===</span> mapAToC_2</code></pre></div>
+<p>This is probably confusing (and poorly explained), but basically what it
+means is that mapping one function <code>f</code>, then mapping another function <code>g</code>
+over a functor should the same as mapping the composed function <code>andThen(f,
+g)</code> over the functor in a single pass. This law is important in that if we
+have a valid functor, we know that we can make a pretty substantial
+optimization - rather than mapping two different functions over our functor
+in two passes, we can do the same thing in a single pass by composing the
+functions.</p>
+
+<h2 id="why-the-laws-matter">Why the laws matter</h2>
+
+<p>The laws exist to make sure we have a concrete definition as to what makes a
+functor a functor. Unfortunately, we can&rsquo;t easily express these laws via the
+ReasonML type system, and this is a common problem with many FP languages. A
+common solution to this shortfall is to use a <a href="https://dev.to/jdsteinhauser/intro-to-property-based-testing-2cj8">property-based
+testing</a>
+library like <a href="https://github.com/Risto-Stevcev/bs-jsverify">bs-jsverify</a>.
+This style of testing basically has you setup &ldquo;properties&rdquo; of a type, like
+the functors laws for example, and then the test framework will test that
+property or law against your implementation using a set of generated inputs
+to ensure that it passes the law in all cases.</p>
+
+<h1 id="finally-the-functor-module-type">Finally, the FUNCTOR module type</h1>
+
+  </article>
+</section>
+
+
+      </div>
+
+      <footer class="footer">
+  <section class="container">
+    
+    
+    
+    
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>
