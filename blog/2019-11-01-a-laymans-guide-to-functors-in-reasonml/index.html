@@ -372,7 +372,155 @@ the functors laws for example, and then the test framework will test that
 property or law against your implementation using a set of generated inputs
 to ensure that it passes the law in all cases.</p>
 
-<h1 id="finally-the-functor-module-type">Finally, the FUNCTOR module type</h1>
+<h1 id="the-functor-module-type">The FUNCTOR module type</h1>
+
+<p>Let&rsquo;s acknowledge that the laws are critically important, but we&rsquo;re going to
+just file them away for now, and return to planet earth. Here is how you
+might <strong>actually</strong> define a functor as a ReasonML module type:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">module</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">FUNCTOR</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">type</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">);</span>
+  <span style="color:#66d9ef">let</span> map<span style="color:#f92672">:</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">,</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">))</span> <span style="color:#f92672">=&gt;</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">);</span>
+<span style="color:#f92672">};</span></code></pre></div>
+<p>I&rsquo;m going to use all-caps for our module types to differentiate them from the
+actual implementation modules. In FP languages like Haskell, PureScript, and
+Scala (among others), this interface concept is called a &ldquo;typeclass&rdquo; and the
+implementation concept is called an &ldquo;instance of the typeclass&rdquo; or just
+&ldquo;instance.&rdquo; So we can say that <code>FUNCTOR</code> is our &ldquo;typeclass module type.&rdquo; You
+might notice that a typeclass is similar in concept to an OO interface, and
+it is in some ways. One key difference is that your implementation &ldquo;instance&rdquo;
+is a standalone module or value and is not tied to a another &ldquo;host&rdquo; type like
+it would be in an OO language where your functor type might <code>extends
+Serializable</code> or whatever.</p>
+
+<p>A few quick observations about this <code>FUNCTOR</code> typeclass - to provide an implementation
+of this &ldquo;interface,&rdquo; we must:</p>
+
+<ol>
+<li>Specify a type with a single type parameter <code>t('a)</code></li>
+<li>Provide a <code>map</code> function that conforms to the given type</li>
+<li>And we must implicitly follow the functor laws in our implementation of
+<code>map</code>, as they are not guaranteed by the types alone</li>
+</ol>
+
+<p>With this type <code>t('a)</code> and this <code>map</code> function, let&rsquo;s also notice that a
+<code>FUNCTOR</code> does not give you any way to put a value of type <code>'a</code> into your
+functor. It also doesn&rsquo;t know how to construct a value of type <code>'a</code>. Finally
+it doesn&rsquo;t know how to do other things like flattening a <code>t(t('a))</code> into a
+<code>t('a)</code>. All it knows how to do is map a pure function <code>'a =&gt; 'b</code> over your
+type <code>t('a)</code> to produce a value of type <code>t('b)</code>. (It can&rsquo;t produce values of
+type <code>'b</code> out of thin air either).</p>
+
+<h1 id="list-functor">List functor</h1>
+
+<p>Now let&rsquo;s implement <code>FUNCTOR</code> for <code>list('a)</code>. These implementations are purely
+for demonstration purposes, so no attempt is made to optimize anything:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">module</span> <span style="color:#a6e22e">List</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+  <span style="color:#f92672">//</span> <span style="color:#a6e22e">Let&#39;s</span> just alias our <span style="color:#66d9ef">type</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#66d9ef">to</span> <span style="color:#66d9ef">list</span><span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span>
+
+  <span style="color:#66d9ef">type</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">list</span><span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">);</span>
+
+  <span style="color:#f92672">//</span> <span style="color:#a6e22e">This</span> implementation is recursive<span style="color:#f92672">,</span> so we&#39;re using <span style="color:#f92672">`</span><span style="color:#66d9ef">let</span> <span style="color:#66d9ef">rec</span><span style="color:#f92672">`</span>
+
+  <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">rec</span> map <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>f<span style="color:#f92672">,</span> <span style="color:#66d9ef">list</span><span style="color:#f92672">)</span> <span style="color:#f92672">=&gt;</span> switch<span style="color:#f92672">(</span><span style="color:#66d9ef">list</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#f92672">|</span> [] <span style="color:#f92672">=&gt;</span> []
+    <span style="color:#f92672">|</span> <span style="color:#f92672">[</span>head<span style="color:#f92672">,</span> <span style="color:#f92672">...</span>tail<span style="color:#f92672">]</span> <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">[</span>f<span style="color:#f92672">(</span>head<span style="color:#f92672">),</span> map<span style="color:#f92672">(</span>f<span style="color:#f92672">,</span> tail<span style="color:#f92672">)]</span>
+  <span style="color:#f92672">};</span>
+
+  <span style="color:#f92672">//</span> <span style="color:#a6e22e">Now</span> <span style="color:#66d9ef">let&#39;</span>s define our <span style="color:#a6e22e">FUNCTOR</span> <span style="color:#66d9ef">as</span> a <span style="color:#66d9ef">module</span><span style="color:#f92672">:</span>
+
+  <span style="color:#66d9ef">module</span> <span style="color:#a6e22e">Functor</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">FUNCTOR</span> <span style="color:#66d9ef">with</span> <span style="color:#66d9ef">type</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+    <span style="color:#f92672">//</span> <span style="color:#a6e22e">Here</span> we just define the members <span style="color:#66d9ef">of</span> the <span style="color:#a6e22e">FUNCTOR</span> <span style="color:#66d9ef">module</span> <span style="color:#66d9ef">type</span>
+    <span style="color:#f92672">//</span> <span style="color:#a6e22e">We</span> use nonrec here so the compiler knows we&#39;re not trying <span style="color:#66d9ef">to</span> define
+    <span style="color:#f92672">//</span> a recursive <span style="color:#66d9ef">type</span> here<span style="color:#f92672">,</span> but that the t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> on the right side refers
+    <span style="color:#f92672">//</span> <span style="color:#66d9ef">to</span> the t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> defined above<span style="color:#f92672">.</span>
+    <span style="color:#66d9ef">type</span> nonrec t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">let</span> map <span style="color:#f92672">=</span> map<span style="color:#f92672">;</span>
+  <span style="color:#f92672">};</span>
+
+  <span style="color:#f92672">//</span> <span style="color:#a6e22e">Another</span> way <span style="color:#66d9ef">to</span> define this without using our <span style="color:#f92672">`</span><span style="color:#66d9ef">type</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">list</span><span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)`</span> alias would be<span style="color:#f92672">:</span>
+
+  <span style="color:#66d9ef">module</span> <span style="color:#a6e22e">Functor</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">FUNCTOR</span> <span style="color:#66d9ef">with</span> <span style="color:#66d9ef">type</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">list</span><span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">type</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">list</span><span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">let</span> map <span style="color:#f92672">=</span> map<span style="color:#f92672">;</span>
+  <span style="color:#f92672">};</span>
+<span style="color:#f92672">};</span></code></pre></div>
+<p>The <code>with type t('a) = list('a)</code> business is a mechanism for exposing
+information about the types contained in our module to the outside world. To
+be honest, I&rsquo;m not an expert on OCaml modules and how they interact with
+types, so I won&rsquo;t attempt to explain any of this, but just know that it&rsquo;s
+important in this case for the outside world to know that the type <code>t('a)</code>
+inside our <code>List.Functor</code> is the same type as (an alias of) <code>list('a)</code>.</p>
+
+<p>Now we have a module <code>List.Functor</code> which conforms to the interface defined
+by the <code>FUNCTOR</code> module type. In other words, <code>List.Functor</code> is an instance
+of the typeclass <code>FUNCTOR</code>. And in OCaml/ReasonML modules are &ldquo;first-class,&rdquo;
+so we can actually pass this <code>List.Functor</code> module around as a value, and use
+it in places that want to operate on <code>FUNCTOR</code>s.</p>
+
+<p>Also, while we are not attempting to prove that our implementation conforms
+to the functor laws above, you can kind of intuitively tell that it conforms
+to the first functor law of identity by just looking. The function is applied
+to the head value, then the function is called recursively to apply the
+function to the tail list. Nothing is being done to shuffle values around,
+copy them, etc. and if you were to pass the <code>id: 'a =&gt; 'a</code> function to our
+<code>map</code>, it&rsquo;s pretty clear the list would not be modified. The composition law
+is a little harder to see intuitively, so we&rsquo;ll just ignore it for now.</p>
+
+<h1 id="aside-on-learning-this">Aside on learning this</h1>
+
+<p>Now that we&rsquo;ve seen how to implement a <code>FUNCTOR</code> and how simple it is, I&rsquo;d
+recommend trying to implement functor for some of the types below yourself -
+I found it was very helpful to learn this stuff by going through the motions
+myself, rather than just reading.</p>
+
+<h1 id="option-functor">Option functor</h1>
+
+<p>Now let&rsquo;s implement <code>FUNCTOR</code> for <code>option('a)</code>. I&rsquo;m going to follow the convention
+of defining a wrapper module for the main type, and aliasing the type <code>t('a)</code>, then
+defining the <code>Functor</code> as a nested &ldquo;submodule&rdquo; of our main module.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">module</span> <span style="color:#a6e22e">Option</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">type</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> option<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">);;</span>
+
+  <span style="color:#f92672">//</span> <span style="color:#a6e22e">I</span> like <span style="color:#66d9ef">to</span> implement the typeclass <span style="color:#66d9ef">function</span> <span style="color:#66d9ef">as</span> a top<span style="color:#f92672">-</span>level members <span style="color:#66d9ef">of</span> a <span style="color:#66d9ef">module</span><span style="color:#f92672">,</span> <span style="color:#f92672">and</span>
+  <span style="color:#f92672">//</span> <span style="color:#66d9ef">then</span> just alias them insde the typeclass instance modules<span style="color:#f92672">.</span> <span style="color:#a6e22e">The</span> <span style="color:#66d9ef">type</span> system <span style="color:#66d9ef">in</span> <span style="color:#a6e22e">OCaml</span>
+  <span style="color:#f92672">//</span> is more powerful than the <span style="color:#66d9ef">module</span> system<span style="color:#f92672">.</span>
+
+  <span style="color:#66d9ef">let</span> map <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>f<span style="color:#f92672">,</span> option<span style="color:#f92672">)</span> <span style="color:#f92672">=&gt;</span> switch<span style="color:#f92672">(</span>option<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
+    <span style="color:#f92672">|</span> <span style="color:#a6e22e">Some</span><span style="color:#f92672">(</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Some</span><span style="color:#f92672">(</span>f<span style="color:#f92672">(</span>a<span style="color:#f92672">))</span>
+    <span style="color:#f92672">|</span> <span style="color:#a6e22e">None</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">None</span>
+  <span style="color:#f92672">};</span>
+
+  <span style="color:#66d9ef">module</span> <span style="color:#a6e22e">Functor</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">FUNCTOR</span> <span style="color:#66d9ef">with</span> <span style="color:#66d9ef">type</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">type</span> nonrec t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">);</span> <span style="color:#f92672">//</span> alias above <span style="color:#66d9ef">type</span>
+    <span style="color:#66d9ef">let</span> map <span style="color:#f92672">=</span> map<span style="color:#f92672">;</span> <span style="color:#f92672">//</span> alias above map <span style="color:#66d9ef">function</span>
+  <span style="color:#f92672">};</span>
+<span style="color:#f92672">};</span></code></pre></div>
+<p>An <code>option('a)</code> is basically a list of 0 or 1 items, so the implementation is
+super easy. Once again, the first functor law can be seen intuitively.</p>
+
+<p>Hopefully at this point, if functors were scary before, they are very unscary
+now. Maybe functors were never scary&hellip;</p>
+
+<h1 id="result-functor">Result functor</h1>
+
+<p><code>Belt.Result.t('a, 'e)</code> is our first example that doesn&rsquo;t exactly fit the <code>t('a)</code>
+requirement of functor. We can easily implement <code>map</code> as a function, because we
+can just ignore the error <code>'e</code> case, and only map the success <code>'a</code> case, but the
+<code>Functor</code> module is not quite as straightforward.</p>
+
+<p>&hellip;</p>
+
+<h1 id="function-functor">Function functor</h1>
+
+<h1 id="function-that-s-not-a-functor">Function that&rsquo;s not a functor</h1>
+
+<h1 id="parser-decoder-functor">Parser/decoder functor</h1>
+
+<h1 id="future-functor">Future functor</h1>
+
+<h1 id="functor-extensions">Functor extensions</h1>
+
+<h1 id="first-class-modules">First-class modules</h1>
 
   </article>
 </section>
