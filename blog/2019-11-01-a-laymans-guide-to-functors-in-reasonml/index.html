@@ -369,7 +369,7 @@ property or law against your implementation using a set of generated inputs
 to ensure that it passes the law in all cases. I hope to give a more concrete
 example of this in a future blog post.</p>
 
-<h1 id="the-functor-module-type">The FUNCTOR module type</h1>
+<h1 id="the-functor-typeclass-module-type">The <code>FUNCTOR</code> typeclass (module type)</h1>
 
 <p>Let&rsquo;s acknowledge that the laws are critically important, but we&rsquo;re going to
 just file them away for now, and return to more concrete things. Below is how
@@ -489,6 +489,13 @@ it is!), I&rsquo;d recommend trying to implement functor for some of the types
 below yourself - I found it was very helpful to learn this stuff by going
 through the motions myself, rather than just reading.</p>
 
+<h1 id="array-functor">Array functor</h1>
+
+<p>The <code>array('a)</code> type has a functor, but it&rsquo;s basically exactly the same as
+<code>list('a)</code>, so I&rsquo;m going to skip over it. The only real difference is how
+<code>map</code> is implemented (just because <code>list('a)</code> and <code>array('a)</code> are different
+types), so if you want to give it a shot, go for it!</p>
+
 <h1 id="option-functor">Option functor</h1>
 
 <p>Now let&rsquo;s implement <code>FUNCTOR</code> for <code>option('a)</code>. I&rsquo;m going to follow the convention
@@ -606,11 +613,17 @@ purpose of this will become more clear.</p>
 
 <h1 id="parser-decoder-functor">Parser/decoder functor</h1>
 
+<h1 id="remotedata-like-functor">RemoteData-like functor</h1>
+
+<h1 id="custom-data-type-functor">Custom data type functor</h1>
+
 <h1 id="future-functor">Future functor</h1>
 
-<h1 id="functor-extensions">Functor extensions</h1>
+<h1 id="what-can-you-do-with-a-functor">What can you do with a <code>FUNCTOR</code>?</h1>
 
-<h1 id="first-class-modules">First-class modules</h1>
+<h1 id="functor-extensions-and-operators"><code>FUNCTOR</code> extensions and operators</h1>
+
+<h1 id="using-functor-as-a-first-class-module">Using <code>FUNCTOR</code> as a first-class module</h1>
 
   </article>
 </section>
