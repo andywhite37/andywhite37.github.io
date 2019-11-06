@@ -17,8 +17,7 @@
       <pubDate>Fri, 01 Nov 2019 17:50:46 -0600</pubDate>
       
       <guid>https://andywhite.xyz/blog/2019-11-01-a-laymans-guide-to-functors-in-reasonml/</guid>
-      <description>In my previous post I talked about my background and how I started on my journey to learn typed functional programming. I&amp;rsquo;ll again preface these posts with a note that I don&amp;rsquo;t have a background in category theory, so these posts are intended to help introduce things from a boots-on-the-ground perspective. Please feel free to correct me on any points I&amp;rsquo;ve messed up.
-Functors In this post, I would like to talk about functors - not OCaml/ReasonML module functors, but functors as they relate to the map function.</description>
+      <description>In my intro post I talked about my background and how I started on my journey to learn typed functional programming. I&amp;rsquo;ll again preface these posts with a note that I don&amp;rsquo;t have a background in category theory, so these posts are intended to help introduce things from a boots-on-the-ground perspective. Please feel free to correct me on any points I&amp;rsquo;ve messed up. I&amp;rsquo;m also not an OCaml expert, so there may be techniques or coding conventions here that are not completely correct.</description>
     </item>
     
     <item>
