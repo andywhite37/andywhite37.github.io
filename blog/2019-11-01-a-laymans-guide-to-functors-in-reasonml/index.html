@@ -1165,6 +1165,25 @@ for encoding higher-kinded types in OCaml, but I&rsquo;m not as familiar with th
 techniques described there, so these restrictions might not be true across
 the board (or at all!).</p>
 
+<p>As an example, it would be cool if you could do this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">//</span> <span style="color:#a6e22e">This</span> doesn&#39;t work<span style="color:#f92672">,</span> <span style="color:#f92672">or</span> at least <span style="color:#a6e22e">I</span> can&#39;t get it <span style="color:#66d9ef">to</span> work<span style="color:#f92672">!</span>
+
+<span style="color:#66d9ef">let</span> emphasize <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">functor</span><span style="color:#f92672">:</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">module</span> <span style="color:#a6e22e">FUNCTOR</span> <span style="color:#66d9ef">with</span> <span style="color:#66d9ef">type</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">string</span><span style="color:#f92672">)),</span> fa<span style="color:#f92672">:</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">string</span><span style="color:#f92672">))</span> <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">module</span> <span style="color:#a6e22e">Functor</span> <span style="color:#f92672">=</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">val</span> <span style="color:#66d9ef">functor</span><span style="color:#f92672">);</span>
+  Functor.map<span style="color:#f92672">(</span>a <span style="color:#f92672">=&gt;</span> a <span style="color:#f92672">++</span> <span style="color:#e6db74">&#34;!&#34;</span><span style="color:#f92672">,</span> fa<span style="color:#f92672">);</span>
+<span style="color:#f92672">};</span>
+
+emphasize<span style="color:#f92672">((</span><span style="color:#66d9ef">module</span> List.<span style="color:#a6e22e">Functor</span><span style="color:#f92672">),</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;hello&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;goodbye&#34;</span><span style="color:#f92672">]);</span> <span style="color:#f92672">//</span> <span style="color:#f92672">[</span><span style="color:#e6db74">&#34;hello!&#34;</span><span style="color:#f92672">,</span> <span style="color:#e6db74">&#34;goodbye!&#34;</span><span style="color:#f92672">]</span> <span style="color:#960050;background-color:#1e0010">🙏</span>
+emphasize<span style="color:#f92672">((</span><span style="color:#66d9ef">module</span> Option.<span style="color:#a6e22e">Functor</span><span style="color:#f92672">),</span> <span style="color:#a6e22e">Some</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;hello&#34;</span><span style="color:#f92672">));</span>      <span style="color:#f92672">//</span> <span style="color:#a6e22e">Some</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;hello!&#34;</span><span style="color:#f92672">)</span> <span style="color:#960050;background-color:#1e0010">🙏</span>
+emphasize<span style="color:#f92672">((</span><span style="color:#66d9ef">module</span> Result.<span style="color:#a6e22e">Functor</span><span style="color:#f92672">),</span> <span style="color:#a6e22e">Ok</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;hi&#34;</span><span style="color:#f92672">));</span>           <span style="color:#f92672">//</span> <span style="color:#a6e22e">Ok</span><span style="color:#f92672">(</span><span style="color:#e6db74">&#34;hi!&#34;</span><span style="color:#f92672">)</span> <span style="color:#960050;background-color:#1e0010">🙏</span></code></pre></div>
+<p>Basically create a function that can work on any <code>FUNCTOR</code> without having to
+specialize it for each instance, but sadly, I don&rsquo;t think this is possible in
+OCaml, because of its lack of higher-kinded types.</p>
+
+<p>This technique does however work for typeclasses that operate on
+non-polymorphic types, like <code>TYPE</code>, <code>SHOW</code> or <code>EQ</code> (which will hopefully be
+covered in another blog post).</p>
+
 <h1 id="conclusion">Conclusion</h1>
 
 <p>Well, that was an extremely long blog post, but I hope it will help plant
