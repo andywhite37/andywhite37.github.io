@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://andywhite.xyz/blog/2019-11-01-a-laymans-guide-to-functors-in-reasonml/</loc>
+    <loc>https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml/</loc>
     <lastmod>2019-11-01T17:50:46-06:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -17,7 +17,7 @@
   </url>
   
   <url>
-    <loc>https://andywhite.xyz/blog/</loc>
+    <loc>https://andywhite.xyz/posts/</loc>
     <lastmod>2019-11-01T17:50:46-06:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -52,7 +52,28 @@
   </url>
   
   <url>
-    <loc>https://andywhite.xyz/blog/2019-10-31-hello-world/</loc>
+    <loc>https://andywhite.xyz/tags/functors/</loc>
+    <lastmod>2019-10-31T21:11:53-06:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://andywhite.xyz/posts/2019-10-31-hello-world/</loc>
+    <lastmod>2019-10-31T21:11:53-06:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://andywhite.xyz/tags/ocaml/</loc>
+    <lastmod>2019-10-31T21:11:53-06:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://andywhite.xyz/tags/reasonml/</loc>
     <lastmod>2019-10-31T21:11:53-06:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -67,6 +88,7 @@
   
   <url>
     <loc>https://andywhite.xyz/tags/</loc>
+    <lastmod>2019-10-31T21:11:53-06:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>

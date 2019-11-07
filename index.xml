@@ -13,10 +13,10 @@
     
     <item>
       <title>A Layman&#39;s Guide to Functors in ReasonML</title>
-      <link>https://andywhite.xyz/blog/2019-11-01-a-laymans-guide-to-functors-in-reasonml/</link>
+      <link>https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml/</link>
       <pubDate>Fri, 01 Nov 2019 17:50:46 -0600</pubDate>
       
-      <guid>https://andywhite.xyz/blog/2019-11-01-a-laymans-guide-to-functors-in-reasonml/</guid>
+      <guid>https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml/</guid>
       <description>In my intro post I talked about my background and how I started on my journey to learn typed functional programming. I&amp;rsquo;ll again preface these posts with a note that I don&amp;rsquo;t have a background in category theory, so these posts are intended to help introduce things from a boots-on-the-ground perspective. Please feel free to correct me on any points I&amp;rsquo;ve messed up. I&amp;rsquo;m also not an OCaml expert, so there may be techniques or coding conventions here that are not completely correct.</description>
     </item>
     
@@ -40,10 +40,10 @@
     
     <item>
       <title>Hello World</title>
-      <link>https://andywhite.xyz/blog/2019-10-31-hello-world/</link>
+      <link>https://andywhite.xyz/posts/2019-10-31-hello-world/</link>
       <pubDate>Thu, 31 Oct 2019 21:11:53 -0600</pubDate>
       
-      <guid>https://andywhite.xyz/blog/2019-10-31-hello-world/</guid>
+      <guid>https://andywhite.xyz/posts/2019-10-31-hello-world/</guid>
       <description>The world of typed functional programming is a vast, mind-blowing, and often terrifying place. There are so many things to learn and so many rabbit holes to go down, it&amp;rsquo;s easy to get overwhelmed, and not know where to even start. For most of my software development career, I operated in blissful ignorance of functional programming - I happily wrote object-oriented and imperative code, mutating data and throwing all sorts of exceptions, and I was actually pretty content with it.</description>
     </item>
     

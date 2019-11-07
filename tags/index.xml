@@ -6,9 +6,37 @@
     <description>Recent content in Tags on Andy White</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
+    <lastBuildDate>Thu, 31 Oct 2019 21:11:53 -0600</lastBuildDate>
     
 	<atom:link href="https://andywhite.xyz/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Functors</title>
+      <link>https://andywhite.xyz/tags/functors/</link>
+      <pubDate>Thu, 31 Oct 2019 21:11:53 -0600</pubDate>
+      
+      <guid>https://andywhite.xyz/tags/functors/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OCaml</title>
+      <link>https://andywhite.xyz/tags/ocaml/</link>
+      <pubDate>Thu, 31 Oct 2019 21:11:53 -0600</pubDate>
+      
+      <guid>https://andywhite.xyz/tags/ocaml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ReasonML</title>
+      <link>https://andywhite.xyz/tags/reasonml/</link>
+      <pubDate>Thu, 31 Oct 2019 21:11:53 -0600</pubDate>
+      
+      <guid>https://andywhite.xyz/tags/reasonml/</guid>
+      <description></description>
+    </item>
     
   </channel>
 </rss>
