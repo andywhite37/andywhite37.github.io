@@ -17,7 +17,63 @@
   </url>
   
   <url>
+    <loc>https://andywhite.xyz/categories/</loc>
+    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://andywhite.xyz/categories/functional-programming/</loc>
+    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://andywhite.xyz/tags/functors/</loc>
+    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://andywhite.xyz/tags/laymans-guide/</loc>
+    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://andywhite.xyz/tags/ocaml/</loc>
+    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://andywhite.xyz/posts/</loc>
+    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://andywhite.xyz/tags/reasonml/</loc>
+    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://andywhite.xyz/categories/software-development/</loc>
+    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://andywhite.xyz/tags/</loc>
     <lastmod>2019-11-01T17:50:46-06:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -38,27 +94,6 @@
   </url>
   
   <url>
-    <loc>https://andywhite.xyz/categories/</loc>
-    <lastmod>2019-10-31T21:11:53-06:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://andywhite.xyz/categories/functional-programming/</loc>
-    <lastmod>2019-10-31T21:11:53-06:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://andywhite.xyz/tags/functors/</loc>
-    <lastmod>2019-10-31T21:11:53-06:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://andywhite.xyz/posts/2019-10-31-hello-world/</loc>
     <lastmod>2019-10-31T21:11:53-06:00</lastmod>
     <changefreq>monthly</changefreq>
@@ -66,28 +101,7 @@
   </url>
   
   <url>
-    <loc>https://andywhite.xyz/tags/ocaml/</loc>
-    <lastmod>2019-10-31T21:11:53-06:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://andywhite.xyz/tags/reasonml/</loc>
-    <lastmod>2019-10-31T21:11:53-06:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://andywhite.xyz/categories/software-development/</loc>
-    <lastmod>2019-10-31T21:11:53-06:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://andywhite.xyz/tags/</loc>
+    <loc>https://andywhite.xyz/tags/rambling/</loc>
     <lastmod>2019-10-31T21:11:53-06:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
