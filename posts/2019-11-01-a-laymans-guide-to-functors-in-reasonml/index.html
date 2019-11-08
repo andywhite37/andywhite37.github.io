@@ -109,7 +109,7 @@
             </span>
             <span class="reading-time">
               <i class="fas fa-clock"></i>
-              40 minutes read
+              41 minutes read
             </span>
           </div>
           <div class="categories">
@@ -1079,6 +1079,55 @@ that can represent both successful and failed computations.</p>
 offensive, if you ask me) abstract type, the <code>Future</code> approach makes both the
 successful value and the error value &ldquo;first-class&rdquo; - you have full control
 over whether and how your async work can fail.</p>
+
+<h1 id="js-promise-functor">Js.Promise functor</h1>
+
+<p>For one final example, let&rsquo;s implement <code>FUNCTOR</code> for
+<a href="https://reasonml.github.io/docs/en/promise">Js.Promise</a>. <code>Js.Promise</code> is the
+ReasonML binding for the ubiquitous <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">JavaScript
+Promise</a>.</p>
+
+<p>You can implement <code>map</code> using the <code>Js.Promise.then_</code> function, which is the binding
+to the <code>then</code> method of JS <code>Promise</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">module</span> <span style="color:#a6e22e">Promise</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+  <span style="color:#66d9ef">type</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> Js.Promise.t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">);</span>
+
+  <span style="color:#66d9ef">let</span> map <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>f<span style="color:#f92672">:</span> <span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">,</span> promiseA<span style="color:#f92672">:</span> Js.Promise.t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)):</span> Js.Promise.t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">)</span> <span style="color:#f92672">=&gt;</span>
+    promiseA <span style="color:#f92672">|&gt;</span> Js.Promise.then_<span style="color:#f92672">(</span>a <span style="color:#f92672">=&gt;</span> Js.Promise.resolve<span style="color:#f92672">(</span>f<span style="color:#f92672">(</span>a<span style="color:#f92672">)));</span>
+  
+  <span style="color:#66d9ef">module</span> <span style="color:#a6e22e">Functor</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">FUNCTOR</span> <span style="color:#66d9ef">with</span> <span style="color:#66d9ef">type</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
+    <span style="color:#66d9ef">type</span> nonrec t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">);</span>
+    <span style="color:#66d9ef">let</span> map <span style="color:#f92672">=</span> map<span style="color:#f92672">;</span>
+  <span style="color:#f92672">};</span>
+<span style="color:#f92672">};</span></code></pre></div>
+<p>The usage would look something like this:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">Js.Promise.resolve<span style="color:#f92672">(</span>42<span style="color:#f92672">)</span>
+<span style="color:#f92672">|&gt;</span> Promise.map<span style="color:#f92672">(</span>a <span style="color:#f92672">=&gt;</span> a <span style="color:#f92672">*</span> 2<span style="color:#f92672">)</span>
+<span style="color:#f92672">|&gt;</span> Js.Promise.then_<span style="color:#f92672">(</span>b <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">{</span>
+     Js.log<span style="color:#f92672">(</span>b<span style="color:#f92672">);</span>
+     Js.Promise.resolve()<span style="color:#f92672">;</span>
+   <span style="color:#f92672">});</span></code></pre></div>
+<p>To quickly explain what&rsquo;s going on here, the <code>then</code> method of the <strong>native
+JavaScript</strong> <code>Promise</code> gives you the value from the previous promise, and
+allows you to either return a pure value <code>'b</code>, a new <code>Promise</code> of <code>'b</code>,
+<code>null</code>, nothing at all (aka <code>undefined</code>), or throw! This ability to return a
+pure value or a new <code>Promise</code>, <code>null</code>, or <code>undefined</code> is not something we can
+express directly in the ReasonML type system. Instead, the authors of the
+BuckleScript <code>Js.Promise</code> binding made it so <code>Js.Promise.then_</code> must return a
+<code>Js.Promise</code>. In our case, we map the value of <code>'a</code> to <code>'b</code>, and return a
+<code>Promise.resolve(b)</code>. In vanilla JavaScript, you could just do <code>a =&gt; f(b)</code>,
+but not so in ReasonML.</p>
+
+<p>When we get into monads in a later post, we&rsquo;ll discuss the difference between
+returning a pure value, like we do in <code>map</code>, and returning a new &ldquo;monadic&rdquo;
+value, like we&rsquo;re doing here with <code>Js.Promise.then_</code>. If you want to read
+more about this, a function like <code>Js.Promise.then_</code> that lets you return a
+new monadic value is often called <code>bind</code>, <code>flatMap</code>, or <code>&gt;&gt;=</code>, and the
+function that lets you inject a pure value into your monadic context, like
+<code>Js.Promise.resolve</code> is often called <code>pure</code>, or (confusingly) <code>return</code>.
+<code>Js.Promise</code> is not the greatest thing to use for explaining functors and
+monads, because <code>then</code> kind of magically does both <code>map</code> and <code>flatMap</code>, but
+it&rsquo;s a familiar example for JavaScript folks.</p>
 
 <h1 id="what-can-you-do-with-a-functor">What can you do with a FUNCTOR?</h1>
 
