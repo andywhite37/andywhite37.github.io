@@ -387,7 +387,8 @@ does both map operations.  Now let&rsquo;s try composing our <code>'a =&gt; 'b</
 by composing two specialized partial-applications of <code>map</code>, and one using a
 composed function within <code>map</code>. The second law states that these two
 specialized <code>t('a) =&gt; t('c)</code> functions must be equal. In other words (<code>==</code>
-just means these things are structurally equal):</p>
+here just means these things should be equivalent for a valid functor, not that
+the functions should be referentially or structurally equal):</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">map<span style="color:#f92672">(</span>aToB<span style="color:#f92672">)</span> <span style="color:#f92672">&gt;&gt;</span> map<span style="color:#f92672">(</span>bToC<span style="color:#f92672">)</span> <span style="color:#f92672">==</span> map<span style="color:#f92672">(</span>aToB <span style="color:#f92672">&gt;&gt;</span> bToC<span style="color:#f92672">)</span></code></pre></div>
 <p>This is probably confusing (and poorly explained), but basically what it
 means is that mapping one function <code>f</code>, then mapping another function <code>g</code>
