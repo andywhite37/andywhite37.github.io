@@ -996,16 +996,17 @@ actually done anything yet), and then you just run it when you&rsquo;re ready
 for it to do its thing.</li>
 </ul></li>
 <li>I added a <code>Decoder.boolean</code> function which is a decoder that succeeds if
-the given <code>Js.Json.t</code> value is a boolean, and fails if it&rsquo;s not a boolean. 1.
-At the bottom, I&rsquo;m setting up my decoder to expect to parse a boolean (using
+the given <code>Js.Json.t</code> value is a boolean, and fails if it&rsquo;s not a boolean.</li>
+<li>At the bottom, I&rsquo;m setting up my decoder to expect to parse a boolean (using
 <code>Decoder.boolean</code>), then I&rsquo;m mapping my <code>Decoder</code> to convert the <code>bool</code> to a
 <code>string</code>, then finally, I&rsquo;m running the decoder with a few test values
-(<code>true</code>, <code>false</code>, and <code>&quot;hi&quot;</code>), to see what happens. The <code>true</code> and <code>false</code>
-cases log the expected strings from the <code>map</code>, and the <code>&quot;hi&quot;</code> case fails.
+(<code>true</code>, <code>false</code>, and <code>&quot;hi&quot;</code>), to see what happens.
 
 <ul>
-<li>the <code>[[&quot;hi&quot;]]</code> is just the JS representation of my
-<code>ExpectedBool(Js.Json.t)</code> error.</li>
+<li>The <code>true</code> and <code>false</code> cases log the expected strings from the <code>map</code>,
+and the <code>&quot;hi&quot;</code> case fails.</li>
+<li>the <code>[[&quot;hi&quot;]]</code> is just the JS representation
+of my <code>ExpectedBool(Js.Json.t)</code> error.</li>
 </ul></li>
 </ol>
 
