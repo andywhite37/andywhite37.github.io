@@ -175,21 +175,24 @@ more familiar to developers coming from JavaScript/ECMAScript. ReasonML has a
 few different compilers which are able to produce JavaScript as a &ldquo;backend,&rdquo;
 meaning that it can transpile ReasonML (or OCaml) code to JavaScript, for use
 in the browser, or in Node.js, for example. The compiler I most use at the
-moment is called <a href="https://bucklescript.github.io/en/">BuckleScript</a>, which is
-actually specifically an OCaml to JS compiler. To make it work with ReasonML,
-you use a separate tool to translate the ReasonML code to OCaml code before
-compiling it with the BuckleScript compiler to produce the JavaScript output,
-which you then have to bundle with a tool like <a href="https://webpack.js.org">Webpack
-😱</a>, <a href="https://parceljs.org">Parcel</a>,
-<a href="https://rollupjs.org/guide/en/">Rollup</a> or whatever the latest
-<em>so hot right now</em> bundler happens to be in the JavaScript community.</p>
+moment is called <a href="https://bucklescript.github.io/en/">BuckleScript</a>, which
+was originally an OCaml to JS compiler. BuckleScript is integrated with
+ReasonML so that it can parse the ReasonML code into the OCaml AST, then
+compile the OCaml AST to produce the JavaScript output, which you then have
+to bundle with a tool like <a href="https://webpack.js.org">Webpack 😱</a>,
+<a href="https://parceljs.org">Parcel</a>, <a href="https://rollupjs.org/guide/en/">Rollup</a> or
+whatever the latest
+<em>so hot right now</em> bundler happens to be in the JavaScript community. There
+*are also
+tools for converting ReasonML syntax to OCaml and vice-versa - every
+syntactical construct in OCaml maps to a syntactical construct in ReasonML.</p>
 
 <p>The workflow is basically:</p>
 
 <ol>
 <li>Write ReasonML code</li>
-<li>Convert ReasonML code to OCaml</li>
-<li>Compile OCaml code with BuckleScript to produce JavaScript code</li>
+<li>Parse ReasonML code into the OCaml AST</li>
+<li>Type-check and compile OCaml AST to produce JavaScript code</li>
 <li>Bundle JavaScript code to produce something you can use on the web or in Node.js</li>
 </ol>
 
@@ -201,8 +204,8 @@ other end is quite readable and usually pretty optimized. Overall, there is
 some weight of tooling with this, but the installation of these tools have
 been mostly ironed out, and are improving each day.</p>
 
-<p>As a side note, you can also compile ReasonML code to native code using the
-native OCaml compiler and tools like <a href="https://esy.sh">esy</a> or
+<p>As a side note, you can also compile ReasonML code natively using the native
+OCaml compiler and tools like <a href="https://esy.sh">esy</a> or
 <a href="https://github.com/ocaml/dune">dune</a>. I don&rsquo;t have any experience with these
 native tools, so I won&rsquo;t say anymore about that.</p>
 
