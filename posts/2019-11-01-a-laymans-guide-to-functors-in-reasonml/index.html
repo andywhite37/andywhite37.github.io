@@ -338,8 +338,8 @@ using the <code>'a =&gt; 'b</code> function. This is sometimes called a
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#f92672">//</span> <span style="color:#a6e22e">The</span> identity <span style="color:#66d9ef">function</span> <span style="color:#f92672">-</span> simply returns the <span style="color:#66d9ef">value</span> given <span style="color:#66d9ef">as</span> the argument
 <span style="color:#66d9ef">let</span> id <span style="color:#f92672">=</span> a <span style="color:#f92672">=&gt;</span> a<span style="color:#f92672">;</span>
 
-<span style="color:#f92672">//</span> <span style="color:#a6e22e">The</span> <span style="color:#f92672">===</span> here just means these things must be the same
-map<span style="color:#f92672">(</span>id<span style="color:#f92672">,</span> fa<span style="color:#f92672">)</span> <span style="color:#f92672">===</span> fa<span style="color:#f92672">;</span></code></pre></div>
+<span style="color:#f92672">//</span> <span style="color:#a6e22e">The</span> <span style="color:#f92672">==</span> here just means these things must be the structurally the same
+map<span style="color:#f92672">(</span>id<span style="color:#f92672">,</span> fa<span style="color:#f92672">)</span> <span style="color:#f92672">==</span> fa<span style="color:#f92672">;</span> <span style="color:#f92672">//</span> true</code></pre></div>
 <p>Basically if you map the identity function over your functor, you should get
 back your functor completely unchanged, both in content and structure. In
 concrete terms, the <code>map</code> function for <code>list('a)</code> (or any other functor) is
@@ -386,9 +386,9 @@ does both map operations.  Now let&rsquo;s try composing our <code>'a =&gt; 'b</
 <p>We&rsquo;ve now created two versions of the function <code>t('a) =&gt; t('c)</code> - one version
 by composing two specialized partial-applications of <code>map</code>, and one using a
 composed function within <code>map</code>. The second law states that these two
-specialized <code>t('a) =&gt; t('c)</code> functions must be equal. In other words (<code>===</code>
-just means these things are equal):</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">map<span style="color:#f92672">(</span>aToB<span style="color:#f92672">)</span> <span style="color:#f92672">&gt;&gt;</span> map<span style="color:#f92672">(</span>bToC<span style="color:#f92672">)</span> <span style="color:#f92672">===</span> map<span style="color:#f92672">(</span>aToB <span style="color:#f92672">&gt;&gt;</span> bToC<span style="color:#f92672">)</span></code></pre></div>
+specialized <code>t('a) =&gt; t('c)</code> functions must be equal. In other words (<code>==</code>
+just means these things are structurally equal):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml">map<span style="color:#f92672">(</span>aToB<span style="color:#f92672">)</span> <span style="color:#f92672">&gt;&gt;</span> map<span style="color:#f92672">(</span>bToC<span style="color:#f92672">)</span> <span style="color:#f92672">==</span> map<span style="color:#f92672">(</span>aToB <span style="color:#f92672">&gt;&gt;</span> bToC<span style="color:#f92672">)</span></code></pre></div>
 <p>This is probably confusing (and poorly explained), but basically what it
 means is that mapping one function <code>f</code>, then mapping another function <code>g</code>
 over a functor in two passes should the same as mapping the composed function
@@ -474,7 +474,7 @@ my <code>Functor</code> as a nested submodule of <code>List</code>:</p>
 
   <span style="color:#66d9ef">let</span> <span style="color:#66d9ef">rec</span> map <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>f<span style="color:#f92672">,</span> <span style="color:#66d9ef">list</span><span style="color:#f92672">)</span> <span style="color:#f92672">=&gt;</span> switch<span style="color:#f92672">(</span><span style="color:#66d9ef">list</span><span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
     <span style="color:#f92672">|</span> [] <span style="color:#f92672">=&gt;</span> []
-    <span style="color:#f92672">|</span> <span style="color:#f92672">[</span>head<span style="color:#f92672">,</span> <span style="color:#f92672">...</span>tail<span style="color:#f92672">]</span> <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">[</span>f<span style="color:#f92672">(</span>head<span style="color:#f92672">),</span> map<span style="color:#f92672">(</span>f<span style="color:#f92672">,</span> tail<span style="color:#f92672">)]</span>
+    <span style="color:#f92672">|</span> <span style="color:#f92672">[</span>head<span style="color:#f92672">,</span> <span style="color:#f92672">...</span>tail<span style="color:#f92672">]</span> <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">[</span>f<span style="color:#f92672">(</span>head<span style="color:#f92672">),</span> <span style="color:#f92672">...</span>map<span style="color:#f92672">(</span>f<span style="color:#f92672">,</span> tail<span style="color:#f92672">)]</span>
   <span style="color:#f92672">};</span>
 
   <span style="color:#f92672">//</span> <span style="color:#a6e22e">Now</span> <span style="color:#66d9ef">let&#39;</span>s define our <span style="color:#a6e22e">FUNCTOR</span> <span style="color:#66d9ef">as</span> a <span style="color:#66d9ef">module</span> that implements our <span style="color:#66d9ef">module</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">FUNCTOR</span>
