@@ -3,77 +3,91 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml/</loc>
-    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
+    <loc>https://andywhite.xyz/posts/2019-11-07-a-laymans-guide-to-applicatives-in-reasonml/</loc>
+    <lastmod>2019-11-07T22:28:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://andywhite.xyz/</loc>
-    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
+    <lastmod>2019-11-07T22:28:54-07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://andywhite.xyz/tags/applicatives/</loc>
+    <lastmod>2019-11-07T22:28:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://andywhite.xyz/categories/</loc>
-    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
+    <lastmod>2019-11-07T22:28:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://andywhite.xyz/categories/functional-programming/</loc>
-    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
+    <lastmod>2019-11-07T22:28:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://andywhite.xyz/tags/functors/</loc>
-    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
+    <lastmod>2019-11-07T22:28:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://andywhite.xyz/tags/laymans-guide/</loc>
-    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
+    <lastmod>2019-11-07T22:28:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://andywhite.xyz/tags/ocaml/</loc>
-    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
+    <lastmod>2019-11-07T22:28:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://andywhite.xyz/posts/</loc>
-    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
+    <lastmod>2019-11-07T22:28:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://andywhite.xyz/tags/reasonml/</loc>
-    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
+    <lastmod>2019-11-07T22:28:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://andywhite.xyz/categories/software-development/</loc>
-    <lastmod>2019-11-01T17:50:46-06:00</lastmod>
+    <lastmod>2019-11-07T22:28:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://andywhite.xyz/tags/</loc>
+    <lastmod>2019-11-07T22:28:54-07:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml/</loc>
     <lastmod>2019-11-01T17:50:46-06:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

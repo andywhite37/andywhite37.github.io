@@ -6,10 +6,21 @@
     <description>Recent content in Functors on Andy White</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Nov 2019 17:50:46 -0600</lastBuildDate>
+    <lastBuildDate>Thu, 07 Nov 2019 22:28:54 -0700</lastBuildDate>
     
 	<atom:link href="https://andywhite.xyz/tags/functors/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>A Layman&#39;s Guide to Applicatives in ReasonML</title>
+      <link>https://andywhite.xyz/posts/2019-11-07-a-laymans-guide-to-applicatives-in-reasonml/</link>
+      <pubDate>Thu, 07 Nov 2019 22:28:54 -0700</pubDate>
+      
+      <guid>https://andywhite.xyz/posts/2019-11-07-a-laymans-guide-to-applicatives-in-reasonml/</guid>
+      <description>Other posts in this series:  A Layman&amp;rsquo;s Guide to Functors in ReasonML  Applicative functors I&amp;rsquo;ll start this post off with a tantalizing quote that I first heard from a former colleague/mentor Kris Nuttycombe:
+ In functional programming, applicatives are the essence of parallel processing, and monads are the essence of sequential processing.
+ In this post about applicative functors (aka applicatives), and my next planned post about monads, I hope to dig into this notion, and try to impart some intuition as to why this is true.</description>
+    </item>
     
     <item>
       <title>A Layman&#39;s Guide to Functors in ReasonML</title>

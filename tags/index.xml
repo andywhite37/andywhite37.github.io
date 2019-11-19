@@ -6,15 +6,24 @@
     <description>Recent content in Tags on Andy White</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Nov 2019 17:50:46 -0600</lastBuildDate>
+    <lastBuildDate>Thu, 07 Nov 2019 22:28:54 -0700</lastBuildDate>
     
 	<atom:link href="https://andywhite.xyz/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Applicatives</title>
+      <link>https://andywhite.xyz/tags/applicatives/</link>
+      <pubDate>Thu, 07 Nov 2019 22:28:54 -0700</pubDate>
+      
+      <guid>https://andywhite.xyz/tags/applicatives/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Functors</title>
       <link>https://andywhite.xyz/tags/functors/</link>
-      <pubDate>Fri, 01 Nov 2019 17:50:46 -0600</pubDate>
+      <pubDate>Thu, 07 Nov 2019 22:28:54 -0700</pubDate>
       
       <guid>https://andywhite.xyz/tags/functors/</guid>
       <description></description>
@@ -23,7 +32,7 @@
     <item>
       <title>Layman&#39;s Guide</title>
       <link>https://andywhite.xyz/tags/laymans-guide/</link>
-      <pubDate>Fri, 01 Nov 2019 17:50:46 -0600</pubDate>
+      <pubDate>Thu, 07 Nov 2019 22:28:54 -0700</pubDate>
       
       <guid>https://andywhite.xyz/tags/laymans-guide/</guid>
       <description></description>
@@ -32,7 +41,7 @@
     <item>
       <title>OCaml</title>
       <link>https://andywhite.xyz/tags/ocaml/</link>
-      <pubDate>Fri, 01 Nov 2019 17:50:46 -0600</pubDate>
+      <pubDate>Thu, 07 Nov 2019 22:28:54 -0700</pubDate>
       
       <guid>https://andywhite.xyz/tags/ocaml/</guid>
       <description></description>
@@ -41,7 +50,7 @@
     <item>
       <title>ReasonML</title>
       <link>https://andywhite.xyz/tags/reasonml/</link>
-      <pubDate>Fri, 01 Nov 2019 17:50:46 -0600</pubDate>
+      <pubDate>Thu, 07 Nov 2019 22:28:54 -0700</pubDate>
       
       <guid>https://andywhite.xyz/tags/reasonml/</guid>
       <description></description>
