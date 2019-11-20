@@ -143,7 +143,7 @@
 <h1 id="other-posts-in-this-series">Other posts in this series:</h1>
 
 <ul>
-<li><a href="2019-11-01-a-laymans-guide-to-functors-in-reasonml">A Layman&rsquo;s Guide to Functors in ReasonML</a></li>
+<li><a href="https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml">A Layman&rsquo;s Guide to Functors in ReasonML</a></li>
 </ul>
 
 <h1 id="applicative-functors">Applicative functors</h1>
@@ -568,7 +568,7 @@ these at this time, but you are welcome to give it a shot yourself!</p>
 
 <p>Now let&rsquo;s try to implement <code>APPLICATIVE</code> for <code>Result.t('a, 'e)</code>. Since
 <code>FUNCTOR</code>/<code>APPLY</code>/<code>APPLICATIVE</code> want to operate on a type <code>t('a)</code>, we&rsquo;ll use
-the module functor trick (see the <a href="https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml.md">functors
+the module functor trick (see the <a href="https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml">functors
 article</a>) again
 to &ldquo;lock-in&rdquo; our error type:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">module</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">TYPE</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
@@ -641,7 +641,7 @@ issue later in the section on &ldquo;applicative validation&rdquo;.</p>
 
 <h1 id="function-applicative">Function applicative</h1>
 
-<p>As we saw in the <a href="https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml.md">functor
+<p>As we saw in the <a href="https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml">functor
 article</a>, we
 could implement <code>FUNCTOR</code> for the function of type <code>'x =&gt; 'a</code>. Let&rsquo;s see how
 to implement <code>APPLICATIVE</code> for this type:</p>
@@ -715,7 +715,7 @@ functions too.</p>
 <h1 id="json-decoder-applicative">JSON decoder applicative</h1>
 
 <p>Let&rsquo;s show a more real-world example of an applicative: the JSON decoder
-function we saw in the <a href="https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml.md">functor article</a>. I&rsquo;ll just jump right
+function we saw in the <a href="https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml">functor article</a>. I&rsquo;ll just jump right
 into it, and explain after, but I encourage you to try it yourself too.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">module</span> <span style="color:#a6e22e">Decoder</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
   <span style="color:#66d9ef">module</span> <span style="color:#a6e22e">Error</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
@@ -1244,7 +1244,7 @@ great deal of control and power.</p>
 
 <p>Now that we&rsquo;ve seen some of the things that you can do with <code>APPLICATIVE</code>,
 let&rsquo;s try to capture those ideas so we can reuse them for <strong>every</strong> applicative.
-In the <a href="https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml.md">functor article</a>,
+In the <a href="https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml">functor article</a>,
 we saw that we could use a module functor to add &ldquo;extensions&rdquo; or &ldquo;freebies&rdquo;
 for any instance of <code>FUNCTOR</code>, and now we&rsquo;ll do the same thing for <code>APPLY</code>.
 Note that all of these extensions just need <code>APPLY</code> and not <code>APPLICATIVE</code>, because
