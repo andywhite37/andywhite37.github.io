@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Andy White</title>
@@ -17,7 +17,7 @@
       <pubDate>Thu, 07 Nov 2019 22:28:54 -0700</pubDate>
       
       <guid>https://andywhite.xyz/posts/2019-11-07-a-laymans-guide-to-applicatives-in-reasonml/</guid>
-      <description>Other posts in this series:  A Layman&amp;rsquo;s Guide to Functors in ReasonML  Applicative functors I&amp;rsquo;ll start this post off with a tantalizing quote that I first heard from a former colleague/mentor Kris Nuttycombe:
+      <description>Other posts in this series:  A Layman&#39;s Guide to Functors in ReasonML  Applicative functors I&#39;ll start this post off with a tantalizing quote that I first heard from a former colleague/mentor Kris Nuttycombe:
  In functional programming, applicatives are the essence of parallel processing, and monads are the essence of sequential processing.
  In this post about applicative functors (aka applicatives), and my next planned post about monads, I hope to dig into this notion, and try to impart some intuition as to why this is true.</description>
     </item>
@@ -28,7 +28,7 @@
       <pubDate>Fri, 01 Nov 2019 17:50:46 -0600</pubDate>
       
       <guid>https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml/</guid>
-      <description>In my intro post I talked about my background and how I started on my journey to learn typed functional programming. I&amp;rsquo;ll again preface these posts with a note that I don&amp;rsquo;t have a background in category theory, so these posts are intended to help introduce things from a boots-on-the-ground perspective. Please feel free to correct me on any points I&amp;rsquo;ve messed up. I&amp;rsquo;m also not an OCaml expert, so there may be techniques or coding conventions here that are not completely correct.</description>
+      <description>In my intro post I talked about my background and how I started on my journey to learn typed functional programming. I&#39;ll again preface these posts with a note that I don&#39;t have a background in category theory, so these posts are intended to help introduce things from a boots-on-the-ground perspective. Please feel free to correct me on any points I&#39;ve messed up. I&#39;m also not an OCaml expert, so there may be techniques or coding conventions here that are not completely correct.</description>
     </item>
     
     <item>
@@ -38,7 +38,7 @@
       
       <guid>https://andywhite.xyz/projects/</guid>
       <description>ReasonML My colleague Michael Martin-Smucker and I develop and maintain a small but growing ecosystem of libraries for ReasonML/BuckleScript in the Reazen GitHub org.
- relude  relude is our &amp;ldquo;standard library replacement&amp;rdquo; for ReasonML/BuckleScript. The purpose of this library is to provide a &amp;ldquo;batteries included&amp;rdquo; style of prelude/stdlib based on the powerful abstractions from category theory and abstract algebra. The library was primarily inspired by the ecosystems of Haskell, PureScript and Scala libraries like scalaz, cats, and shapeless In addition to the math-based abstractions, we provide all the other helper modules and functions that you&amp;rsquo;d expect from a reasonable standard library.</description>
+ relude  relude is our &amp;ldquo;standard library replacement&amp;rdquo; for ReasonML/BuckleScript. The purpose of this library is to provide a &amp;ldquo;batteries included&amp;rdquo; style of prelude/stdlib based on the powerful abstractions from category theory and abstract algebra. The library was primarily inspired by the ecosystems of Haskell, PureScript and Scala libraries like scalaz, cats, and shapeless In addition to the math-based abstractions, we provide all the other helper modules and functions that you&#39;d expect from a reasonable standard library.</description>
     </item>
     
     <item>
@@ -49,7 +49,7 @@
       <guid>https://andywhite.xyz/about/</guid>
       <description>Hi, my name is Andy White, and this is my personal website.
 I live in Erie, Colorado (near Boulder) with my wife and three kids, and I work as a full-stack software developer.
-I&amp;rsquo;ve lived in Colorado my whole life - I was born in Denver, grew up mostly in Colorado Springs, and then bounced around the Denver metro area in my adult life.
+I&#39;ve lived in Colorado my whole life - I was born in Denver, grew up mostly in Colorado Springs, and then bounced around the Denver metro area in my adult life.
 I attended the University of Colorado at Boulder, and studied Electrical/Computer Engineering.</description>
     </item>
     
@@ -59,7 +59,7 @@ I attended the University of Colorado at Boulder, and studied Electrical/Compute
       <pubDate>Thu, 31 Oct 2019 21:11:53 -0600</pubDate>
       
       <guid>https://andywhite.xyz/posts/2019-10-31-hello-world/</guid>
-      <description>The world of typed functional programming is a vast, mind-blowing, and often terrifying place. There are so many things to learn and so many rabbit holes to go down, it&amp;rsquo;s easy to get overwhelmed, and not know where to even start. For most of my software development career, I operated in blissful ignorance of functional programming - I happily wrote object-oriented and imperative code, mutating data and throwing all sorts of exceptions, and I was actually pretty content with it.</description>
+      <description>The world of typed functional programming is a vast, mind-blowing, and often terrifying place. There are so many things to learn and so many rabbit holes to go down, it&#39;s easy to get overwhelmed, and not know where to even start. For most of my software development career, I operated in blissful ignorance of functional programming - I happily wrote object-oriented and imperative code, mutating data and throwing all sorts of exceptions, and I was actually pretty content with it.</description>
     </item>
     
   </channel>

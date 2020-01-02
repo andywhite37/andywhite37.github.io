@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Rambling on Andy White</title>
@@ -17,7 +17,7 @@
       <pubDate>Thu, 31 Oct 2019 21:11:53 -0600</pubDate>
       
       <guid>https://andywhite.xyz/posts/2019-10-31-hello-world/</guid>
-      <description>The world of typed functional programming is a vast, mind-blowing, and often terrifying place. There are so many things to learn and so many rabbit holes to go down, it&amp;rsquo;s easy to get overwhelmed, and not know where to even start. For most of my software development career, I operated in blissful ignorance of functional programming - I happily wrote object-oriented and imperative code, mutating data and throwing all sorts of exceptions, and I was actually pretty content with it.</description>
+      <description>The world of typed functional programming is a vast, mind-blowing, and often terrifying place. There are so many things to learn and so many rabbit holes to go down, it&#39;s easy to get overwhelmed, and not know where to even start. For most of my software development career, I operated in blissful ignorance of functional programming - I happily wrote object-oriented and imperative code, mutating data and throwing all sorts of exceptions, and I was actually pretty content with it.</description>
     </item>
     
   </channel>
