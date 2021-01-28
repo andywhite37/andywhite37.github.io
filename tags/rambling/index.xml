@@ -6,18 +6,14 @@
     <description>Recent content in Rambling on Andy White</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 31 Oct 2019 21:11:53 -0600</lastBuildDate>
-    
-	<atom:link href="https://andywhite.xyz/tags/rambling/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 31 Oct 2019 21:11:53 -0600</lastBuildDate><atom:link href="https://andywhite.xyz/tags/rambling/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Hello World</title>
       <link>https://andywhite.xyz/posts/2019-10-31-hello-world/</link>
       <pubDate>Thu, 31 Oct 2019 21:11:53 -0600</pubDate>
       
       <guid>https://andywhite.xyz/posts/2019-10-31-hello-world/</guid>
-      <description>The world of typed functional programming is a vast, mind-blowing, and often terrifying place. There are so many things to learn and so many rabbit holes to go down, it&#39;s easy to get overwhelmed, and not know where to even start. For most of my software development career, I operated in blissful ignorance of functional programming - I happily wrote object-oriented and imperative code, mutating data and throwing all sorts of exceptions, and I was actually pretty content with it.</description>
+      <description>The world of typed functional programming is a vast, mind-blowing, and often terrifying place. There are so many things to learn and so many rabbit holes to go down, it&amp;rsquo;s easy to get overwhelmed, and not know where to even start. For most of my software development career, I operated in blissful ignorance of functional programming - I happily wrote object-oriented and imperative code, mutating data and throwing all sorts of exceptions, and I was actually pretty content with it.</description>
     </item>
     
   </channel>

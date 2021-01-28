@@ -6,11 +6,7 @@
     <description>Recent content in Categories on Andy White</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 07 Nov 2019 22:28:54 -0700</lastBuildDate>
-    
-	<atom:link href="https://andywhite.xyz/categories/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 07 Nov 2019 22:28:54 -0700</lastBuildDate><atom:link href="https://andywhite.xyz/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Functional Programming</title>
       <link>https://andywhite.xyz/categories/functional-programming/</link>
