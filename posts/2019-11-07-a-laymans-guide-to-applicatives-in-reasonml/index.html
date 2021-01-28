@@ -4,19 +4,26 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    
+      <script data-ad-client="ca-pub-7171078376920665" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
 
     <meta name="author" content="Andy White">
-    <meta name="description" content="Andy White&#39;s personal website">
+    <meta name="description" content="Other posts in this series:     A Layman&rsquo;s Guide to Functors in ReasonML  Applicative functors    I&rsquo;ll start this post off with a tantalizing quote that I first heard from a former colleague/mentor Kris Nuttycombe:
+ In functional programming, applicatives are the essence of parallel processing, and monads are the essence of sequential processing.
+ In this post about applicative functors (aka applicatives), and my next planned post about monads, I hope to dig into this notion, and try to impart some intuition as to why this is true.">
     <meta name="keywords" content="blog,tech,developer,software,personal">
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="A Layman&#39;s Guide to Applicatives in ReasonML"/>
-<meta name="twitter:description" content="Other posts in this series:  A Layman&rsquo;s Guide to Functors in ReasonML  Applicative functors I&rsquo;ll start this post off with a tantalizing quote that I first heard from a former colleague/mentor Kris Nuttycombe:
+<meta name="twitter:description" content="Other posts in this series:     A Layman&rsquo;s Guide to Functors in ReasonML  Applicative functors    I&rsquo;ll start this post off with a tantalizing quote that I first heard from a former colleague/mentor Kris Nuttycombe:
  In functional programming, applicatives are the essence of parallel processing, and monads are the essence of sequential processing.
  In this post about applicative functors (aka applicatives), and my next planned post about monads, I hope to dig into this notion, and try to impart some intuition as to why this is true."/>
 
     <meta property="og:title" content="A Layman&#39;s Guide to Applicatives in ReasonML" />
-<meta property="og:description" content="Other posts in this series:  A Layman&rsquo;s Guide to Functors in ReasonML  Applicative functors I&rsquo;ll start this post off with a tantalizing quote that I first heard from a former colleague/mentor Kris Nuttycombe:
+<meta property="og:description" content="Other posts in this series:     A Layman&rsquo;s Guide to Functors in ReasonML  Applicative functors    I&rsquo;ll start this post off with a tantalizing quote that I first heard from a former colleague/mentor Kris Nuttycombe:
  In functional programming, applicatives are the essence of parallel processing, and monads are the essence of sequential processing.
  In this post about applicative functors (aka applicatives), and my next planned post about monads, I hope to dig into this notion, and try to impart some intuition as to why this is true." />
 <meta property="og:type" content="article" />
@@ -25,9 +32,6 @@
 <meta property="article:modified_time" content="2019-11-07T22:28:54-07:00" />
 
 
-    
-      <base href="https://andywhite.xyz/posts/2019-11-07-a-laymans-guide-to-applicatives-in-reasonml/">
-    
     <title>
   A Layman&#39;s Guide to Applicatives in ReasonML · Andy White
 </title>
@@ -36,14 +40,14 @@
       <link rel="canonical" href="https://andywhite.xyz/posts/2019-11-07-a-laymans-guide-to-applicatives-in-reasonml/">
     
 
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://andywhite.xyz/fonts/forkawesome-webfont.woff2?v=1.1.7" as="font" type="font/woff2" crossorigin>
 
     
       
       
-      <link rel="stylesheet" href="https://andywhite.xyz/css/coder.min.28d751104f30c16da1aa1bb04015cbe662cacfe0d1b01af4f2240ad58580069c.css" integrity="sha256-KNdREE8wwW2hqhuwQBXL5mLKz&#43;DRsBr08iQK1YWABpw=" crossorigin="anonymous" media="screen" />
+      <link rel="stylesheet" href="https://andywhite.xyz/css/coder.min.f48a4da9bd32cecaff90717ae85529411dd087c10fc0dfca9c9c329c7327e5e1.css" integrity="sha256-9IpNqb0yzsr/kHF66FUpQR3Qh8EPwN/KnJwynHMn5eE=" crossorigin="anonymous" media="screen" />
     
 
     
@@ -53,44 +57,61 @@
     
 
     
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
-    
-      <script src="https://andywhite.xyz/js/main.js"></script>
-    
-    
+
     <link rel="icon" type="image/png" href="https://andywhite.xyz/images/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="https://andywhite.xyz/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="https://andywhite.xyz/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://andywhite.xyz/images/apple-touch-icon.png">
+
+    
 
     <meta name="generator" content="Hugo 0.80.0" />
   </head>
 
-  <body class=" ">
+  
+  
+  <body class="colorscheme-light"
+        onload=""
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
     <main class="wrapper">
       <nav class="navigation">
   <section class="container">
     <a class="navigation-title" href="https://andywhite.xyz/">
       Andy White
     </a>
-    <input type="checkbox" id="menu-toggle" />
-    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
-    <ul class="navigation-list">
-      
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
         
-          <li class="navigation-item">
-            <a class="navigation-link" href="https://andywhite.xyz/posts/">Blog</a>
-          </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://andywhite.xyz/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://andywhite.xyz/projects/">Projects</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://andywhite.xyz/about/">About</a>
+            </li>
+          
         
-          <li class="navigation-item">
-            <a class="navigation-link" href="https://andywhite.xyz/projects/">Projects</a>
-          </li>
         
-          <li class="navigation-item">
-            <a class="navigation-link" href="https://andywhite.xyz/about/">About</a>
-          </li>
-        
-      
-      
-    </ul>
+      </ul>
+    
   </section>
 </nav>
 
@@ -101,29 +122,34 @@
     <article>
       <header>
         <div class="post-title">
-          <h1 class="title">A Layman&#39;s Guide to Applicatives in ReasonML</h1>
+          <h1 class="title">
+            <a class="title-link" href="https://andywhite.xyz/posts/2019-11-07-a-laymans-guide-to-applicatives-in-reasonml/">
+              A Layman&#39;s Guide to Applicatives in ReasonML
+            </a>
+          </h1>
         </div>
         <div class="post-meta">
           <div class="date">
             <span class="posted-on">
-              <i class="fas fa-calendar"></i>
+              <i class="fa fa-calendar" aria-hidden="true"></i>
               <time datetime='2019-11-07T22:28:54-07:00'>
                 November 7, 2019
               </time>
             </span>
             <span class="reading-time">
-              <i class="fas fa-clock"></i>
-              65 minutes read
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              65-minute read
             </span>
           </div>
+          
           <div class="categories">
-  <i class="fas fa-folder"></i>
+  <i class="fa fa-folder" aria-hidden="true"></i>
     <a href="https://andywhite.xyz/categories/software-development/">Software Development</a>
       <span class="separator">•</span>
     <a href="https://andywhite.xyz/categories/functional-programming/">Functional Programming</a></div>
 
           <div class="tags">
-  <i class="fas fa-tag"></i>
+  <i class="fa fa-tag" aria-hidden="true"></i>
     <a href="https://andywhite.xyz/tags/reasonml/">ReasonML</a>
       <span class="separator">•</span>
     <a href="https://andywhite.xyz/tags/ocaml/">OCaml</a>
@@ -138,11 +164,22 @@
       </header>
 
       <div>
-        <h1 id="other-posts-in-this-series">Other posts in this series:</h1>
+        
+        <h1 id="other-posts-in-this-series">
+  Other posts in this series:
+  <a class="heading-link" href="#other-posts-in-this-series">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <ul>
 <li><a href="https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml">A Layman&rsquo;s Guide to Functors in ReasonML</a></li>
 </ul>
-<h1 id="applicative-functors">Applicative functors</h1>
+<h1 id="applicative-functors">
+  Applicative functors
+  <a class="heading-link" href="#applicative-functors">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>I&rsquo;ll start this post off with a tantalizing quote that I first heard from
 a former colleague/mentor <a href="https://twitter.com/nuttycom">Kris Nuttycombe</a>:</p>
 <blockquote>
@@ -171,7 +208,12 @@ them fail.</p>
 <p>The <code>apply</code>/<code>ap</code>/<code>&lt;*&gt;</code> function itself is just so strangely simple yet
 mysterious, and to me, it was not immediately obvious how this humble
 function lends itself to parallel processing.</p>
-<h1 id="the-plan">The plan</h1>
+<h1 id="the-plan">
+  The plan
+  <a class="heading-link" href="#the-plan">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>I&rsquo;m going to approach the topic of applicatives in the way that I think would
 have helped me to more quickly understand and appreciate it:</p>
 <ol>
@@ -197,7 +239,12 @@ re-formulated into functions that makes the parallel capability more clear
 <li>Talk about applicative validation</li>
 <li>Talk about the <code>APPLICATIVE</code> laws</li>
 </ol>
-<h1 id="applicative-programming-with-effects-paper">Applicative Programming with Effects paper</h1>
+<h1 id="applicative-programming-with-effects-paper">
+  Applicative Programming with Effects paper
+  <a class="heading-link" href="#applicative-programming-with-effects-paper">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Before we jump in, I&rsquo;ll just put a link to the paper where I believe the
 concept of applicative functors was first introduced in 2007. The paper is
 called <a href="http://www.staff.city.ac.uk/~ross/papers/Applicative.html">Applicative Programming with
@@ -211,7 +258,12 @@ never are able to understand it, that&rsquo;s okay too! You don&rsquo;t need to
 understand the full scope of everything to make use of the parts you do
 understand, and you don&rsquo;t need to fully grok all the underlying math and
 academics. FP is not an all-or-nothing paradigm.</p>
-<h1 id="apply-typeclass">APPLY typeclass</h1>
+<h1 id="apply-typeclass">
+  APPLY typeclass
+  <a class="heading-link" href="#apply-typeclass">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>The <code>APPLY</code> typeclass is an extension of the <code>FUNCTOR</code> typeclass that I
 covered in my <a href="https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml">blog post about
 functors</a> Being an
@@ -261,7 +313,12 @@ while <code>apply</code> can apply a <strong>function that&rsquo;s inside a func
 value that&rsquo;s inside another functor context. This curiously simple function
 is what unlocks the power of parallel processing, but if you don&rsquo;t see it
 yet, that&rsquo;s okay, I didn&rsquo;t either!</p>
-<h1 id="applicative-typeclass">APPLICATIVE typeclass</h1>
+<h1 id="applicative-typeclass">
+  APPLICATIVE typeclass
+  <a class="heading-link" href="#applicative-typeclass">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>I&rsquo;m going to introduce one more small concept now, because it&rsquo;s quite simple
 and it makes sense to just explain it together with <code>apply</code>. This new concept
 is the <code>pure</code> function. All <code>pure</code> does it take a <strong>pure value</strong> of type
@@ -303,7 +360,12 @@ to actually put a value into our functor context, whereas before, we could
 only operate on values that were already in the context, using <code>map</code> and
 <code>apply</code>. Also note that we do not have a way to get a value out of our
 applicative functor context once it&rsquo;s in there, i.e. we don&rsquo;t have a <code>t('a) =&gt; 'a</code> function here.</p>
-<h1 id="apply-and-applicative-historical-notes">APPLY and APPLICATIVE historical notes</h1>
+<h1 id="apply-and-applicative-historical-notes">
+  APPLY and APPLICATIVE historical notes
+  <a class="heading-link" href="#apply-and-applicative-historical-notes">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>For some historical context from Haskell, I believe that when the applicative
 functor was first identified as a distinct abstraction, the key parts had
 already been sort of &ldquo;identified&rdquo; as functions or concepts in the <code>Monad</code>
@@ -324,7 +386,12 @@ makes your code more abstract, which means there are fewer ways for it to do
 the wrong thing or be used incorrectly, and makes it more general so that
 more things can use it, or be used with it.</p>
 <p>Let&rsquo;s see what <code>APPLICATIVE</code> looks like in some real examples:</p>
-<h1 id="option-applicative">Option applicative</h1>
+<h1 id="option-applicative">
+  Option applicative
+  <a class="heading-link" href="#option-applicative">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Let&rsquo;s implement <code>APPLICATIVE</code> for <code>option('a)</code>. This one is pretty easy, you
 just &ldquo;follow the types.&rdquo; I&rsquo;m going to implement all the functions at the
 top-level of <code>Option</code> for convenience, then just alias the functions in the
@@ -403,7 +470,12 @@ instances. Also, I like to annotate the module types, just to make it clear
 what my intentions are with these modules, even though the compiler can infer
 the module types.</p>
 <p>That&rsquo;s it for <code>option</code>!</p>
-<h1 id="jspromise-applicative">Js.Promise applicative</h1>
+<h1 id="jspromise-applicative">
+  Js.Promise applicative
+  <a class="heading-link" href="#jspromise-applicative">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Now let&rsquo;s try implementing <code>apply</code> for a more complex type: <code>Js.Promise.t('a)</code>.</p>
 <p>First think about the type signature, and substitute <code>Js.Promise.t('a)</code> for <code>t('a)</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> apply<span style="color:#f92672">:</span> <span style="color:#f92672">(</span>t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">),</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">))</span> <span style="color:#f92672">=&gt;</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">);</span>
@@ -500,7 +572,12 @@ why applicatives are associated with parallel processing - we get two
 independent &ldquo;effectful values&rdquo; (the promises), and we wait for both of them
 to finish independently before we use them to do our final computation. I&rsquo;ll
 talk about what &ldquo;effectful values&rdquo; means a little later.</p>
-<h1 id="listarraytree-applicative">List/array/tree applicative</h1>
+<h1 id="listarraytree-applicative">
+  List/array/tree applicative
+  <a class="heading-link" href="#listarraytree-applicative">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>The types <code>list('a)</code>, <code>array('a)</code>, and other &ldquo;multi-value data types&rdquo; like
 binary trees, etc. have applicative instances, but I&rsquo;m going to skip these in
 this article, as I don&rsquo;t personally think they are immediately helpful in
@@ -517,7 +594,12 @@ imagine a binary tree of functions <code>Tree.t('a =&gt; 'b)</code> applied to a
 tree of values <code>Tree.t('a)</code>. These applicatives can be implemented, but it&rsquo;s
 not something you run into as much in day-to-day use, so I&rsquo;ll not get into
 these at this time, but you are welcome to give it a shot yourself!</p>
-<h1 id="result-applicative">Result applicative</h1>
+<h1 id="result-applicative">
+  Result applicative
+  <a class="heading-link" href="#result-applicative">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Now let&rsquo;s try to implement <code>APPLICATIVE</code> for <code>Result.t('a, 'e)</code>. Since
 <code>FUNCTOR</code>/<code>APPLY</code>/<code>APPLICATIVE</code> want to operate on a type <code>t('a)</code>, we&rsquo;ll use
 the module functor trick (see the <a href="https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml">functors
@@ -589,7 +671,12 @@ case - we need both the function and the value in order to produce the result
 of type <code>'b</code> with <code>Ok(aToB(a))</code>.</p>
 <p>We&rsquo;ll leave <code>Result</code> like this for now, but we&rsquo;ll revisit this error handling
 issue later in the section on &ldquo;applicative validation&rdquo;.</p>
-<h1 id="function-applicative">Function applicative</h1>
+<h1 id="function-applicative">
+  Function applicative
+  <a class="heading-link" href="#function-applicative">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>As we saw in the <a href="https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml">functor
 article</a>, we
 could implement <code>FUNCTOR</code> for the function of type <code>'x =&gt; 'a</code>. Let&rsquo;s see how
@@ -657,7 +744,12 @@ monad</a>.</p>
 <p>Also, I wanted to show this as an example of an <code>APPLICATIVE</code> that&rsquo;s not just
 a static data value, to demonstrate that these concepts can apply to
 functions too.</p>
-<h1 id="json-decoder-applicative">JSON decoder applicative</h1>
+<h1 id="json-decoder-applicative">
+  JSON decoder applicative
+  <a class="heading-link" href="#json-decoder-applicative">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Let&rsquo;s show a more real-world example of an applicative: the JSON decoder
 function we saw in the <a href="https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml">functor article</a>. I&rsquo;ll just jump right
 into it, and explain after, but I encourage you to try it yourself too.</p>
@@ -723,7 +815,12 @@ hopefully try that out in another blog post. The concept of a &ldquo;decoder of 
 function&rdquo; <code>'a =&gt; 'b</code> doesn&rsquo;t make much intuitive sense, but we&rsquo;ll soon see
 where this comes into play, and maybe it will become clear as to why we&rsquo;re
 doing these things.</p>
-<h1 id="map-in-terms-of-apply-and-pure">map in terms of apply and pure</h1>
+<h1 id="map-in-terms-of-apply-and-pure">
+  map in terms of apply and pure
+  <a class="heading-link" href="#map-in-terms-of-apply-and-pure">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>We&rsquo;ve now seen that <code>APPLICATIVE</code> is an extension of <code>FUNCTOR</code> - it adds the
 functions <code>apply</code> and <code>pure</code> to the <code>t('a)</code> and <code>map</code> function we have from
 <code>FUNCTOR</code>. One interesting thing to note at this point is that you can actually
@@ -747,7 +844,12 @@ terms of the monadic function <code>flatMap</code> (aka <code>bind</code> or <co
 convenient to implement one of the higher-level functions for a type, and
 then just implement the lower-level functions in terms of the &ldquo;more powerful&rdquo;
 ones.</p>
-<h1 id="reformulation-of-apply-as-tuple2">Reformulation of apply as tuple2</h1>
+<h1 id="reformulation-of-apply-as-tuple2">
+  Reformulation of apply as tuple2
+  <a class="heading-link" href="#reformulation-of-apply-as-tuple2">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Let&rsquo;s now look at a reformulation of <code>apply</code> that better demonstrates the
 parallel nature of applicatives. If this section bends your brain too far,
 I&rsquo;d highly recommend just trying it for yourself - it can take some time and
@@ -870,7 +972,12 @@ result:</p>
   <span style="color:#66d9ef">let</span> makeTuple2 <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>a<span style="color:#f92672">,</span> b<span style="color:#f92672">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">(</span>a<span style="color:#f92672">,</span> b<span style="color:#f92672">);</span>
   apply<span style="color:#f92672">(</span>apply<span style="color:#f92672">(</span>pure<span style="color:#f92672">(</span>makeTuple2<span style="color:#f92672">),</span> fa<span style="color:#f92672">),</span> fb<span style="color:#f92672">);</span>
 <span style="color:#f92672">};</span>
-</code></pre></div><h1 id="apply-multiple-times">Apply multiple times</h1>
+</code></pre></div><h1 id="apply-multiple-times">
+  Apply multiple times
+  <a class="heading-link" href="#apply-multiple-times">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Surprisingly, this pattern of <code>map</code> and <code>apply</code> works for <strong>any</strong> number of
 arguments - we can just keep <code>apply</code>ing the resulting functions to the next
 values until we run out of arguments in our function and arrive at our final
@@ -945,7 +1052,12 @@ values:</p>
 </code></pre></div><p>If you haven&rsquo;t recognized it yet, these look at lot like the
 <code>Js.Promise.allN</code> functions, but there&rsquo;s no specific mention of <code>Js.Promise</code>
 here - we&rsquo;re just using the functions from our <code>APPLY</code> abstraction.</p>
-<h1 id="map2-map3-etc">map2, map3, etc.</h1>
+<h1 id="map2-map3-etc">
+  map2, map3, etc.
+  <a class="heading-link" href="#map2-map3-etc">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Now let&rsquo;s generalize our <code>tuple2</code>, <code>tuple3</code>, etc. functions. Recall the defintion
 we made for <code>tuple2</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> tuple2 <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>fa<span style="color:#f92672">:</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">),</span> fb<span style="color:#f92672">:</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">))</span> <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">{</span>
@@ -975,7 +1087,12 @@ function <code>('a, 'b) =&gt; 'c</code> into the applicative context <code>(t('a
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> tuple2 <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>fa<span style="color:#f92672">:</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">),</span> fb<span style="color:#f92672">:</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">)):</span> t<span style="color:#f92672">((</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">,</span> <span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">))</span> <span style="color:#f92672">=&gt;</span> map2<span style="color:#f92672">((</span>a<span style="color:#f92672">,</span> b<span style="color:#f92672">)</span> <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">(</span>a<span style="color:#f92672">,</span> b<span style="color:#f92672">),</span> fa<span style="color:#f92672">,</span> fb<span style="color:#f92672">);</span>
 </code></pre></div><p>These <code>mapN</code> functions are useful for running a bunch of independent
 applicative effects and combining the results however we please.</p>
-<h1 id="the-mapapap-pattern">The map/ap/ap pattern</h1>
+<h1 id="the-mapapap-pattern">
+  The map/ap/ap pattern
+  <a class="heading-link" href="#the-mapapap-pattern">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Let&rsquo;s get super fancy, and cast off our fear of weird operators, and do the
 above using some Haskell-style infix operators. Once you grok the pattern
 (and memorize the operators), the infix-based approach actually becomes
@@ -1053,7 +1170,12 @@ immediately lift our function into the applicative context, so we can&rsquo;t us
 (<code>&lt;*&gt;</code>) for the first application, and for all the rest.</p>
 <p>We&rsquo;ll see some more concrete uses of these operators below in &ldquo;applicative
 validation&rdquo;.</p>
-<h1 id="applicative-effects">Applicative &ldquo;effects&rdquo;</h1>
+<h1 id="applicative-effects">
+  Applicative &ldquo;effects&rdquo;
+  <a class="heading-link" href="#applicative-effects">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Let&rsquo;s take a break from code to talk about the concept of &ldquo;effects&rdquo; and
 &ldquo;effectful&rdquo; values. These concepts are a bit overloaded in functional
 programming, so let&rsquo;s take a look at a few examples. Let&rsquo;s assume our
@@ -1141,7 +1263,12 @@ when they happen, and are manifested by <code>null</code> values, exceptions, or
 spaghetti code that just does whatever it wants whenever it wants, the
 functional approach will take a little getting used to, but it unlocks a
 great deal of control and power.</p>
-<h1 id="apply-extensions">Apply extensions</h1>
+<h1 id="apply-extensions">
+  Apply extensions
+  <a class="heading-link" href="#apply-extensions">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Now that we&rsquo;ve seen some of the things that you can do with <code>APPLICATIVE</code>,
 let&rsquo;s try to capture those ideas so we can reuse them for <strong>every</strong> applicative.
 In the <a href="https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml">functor article</a>,
@@ -1314,7 +1441,12 @@ and we just get them all for free anywhere we&rsquo;re using <code>ApplyExtensio
 you think this is cool, you should take a look at languages like Haskell or
 PureScript and see how they do all this with much less ceremony, but it&rsquo;s
 still pretty cool that we can achieve something very similar in ReasonML!</p>
-<h1 id="applicative-validation">Applicative validation</h1>
+<h1 id="applicative-validation">
+  Applicative validation
+  <a class="heading-link" href="#applicative-validation">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>We now have a bunch of useful tools for dealing with <code>APPLY</code> and
 <code>APPLICATIVE</code> instances and their &ldquo;effectful values,&rdquo; so let&rsquo;s see what we
 can do with them.</p>
@@ -1331,7 +1463,12 @@ using <code>&lt;$&gt;</code> and <code>&lt;*&gt;</code>, which we&rsquo;ll see b
 <p>Let&rsquo;s now look at one more very useful use case for applicatives: applicative
 validation, parsing, and decoding. But first, let&rsquo;s introduce a few additional
 concepts to help us out:</p>
-<h1 id="semigroup-typeclass">SEMIGROUP typeclass</h1>
+<h1 id="semigroup-typeclass">
+  SEMIGROUP typeclass
+  <a class="heading-link" href="#semigroup-typeclass">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Now that we&rsquo;ve seen <code>FUNCTOR</code>, <code>APPLY</code>, and <code>APPLICATIVE</code>, we know that
 typeclasses are sort of just sets of functions that must conform to some
 laws, so I think we can start to introduce more of these things without fear.
@@ -1421,7 +1558,12 @@ of that form. We&rsquo;ll call it <code>SEMIGROUP_ANY</code> - that&rsquo;s what
   <span style="color:#f92672">};</span>
 <span style="color:#f92672">};</span>
 </code></pre></div><p>I hope that&rsquo;s clear enough for now, and let&rsquo;s move on.</p>
-<h1 id="nonemptylist-data-type">NonEmptyList data type</h1>
+<h1 id="nonemptylist-data-type">
+  NonEmptyList data type
+  <a class="heading-link" href="#nonemptylist-data-type">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Let&rsquo;s now introduce a useful type for error handling - a <code>NonEmptyList</code>.
 Sometimes when you&rsquo;re dealing with collections of values, it can be really
 helpful to guarantee that there&rsquo;s at least one value. Imagine a validation
@@ -1468,7 +1610,12 @@ what it says it is: a non-empty list. We&rsquo;re going to use this below for
 &ldquo;collecting errors&rdquo; in our applicative validation, so that we can be sure
 that if an applicative operation fails, we&rsquo;ll get at least one error value
 out.</p>
-<h1 id="validation-data-type">Validation data type</h1>
+<h1 id="validation-data-type">
+  Validation data type
+  <a class="heading-link" href="#validation-data-type">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>If you recall above when we implemented <code>apply</code> for <code>Result.t('a, 'e)</code>, we
 ran into a conundrum when faced with the &ldquo;both sides failed&rdquo; case:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> apply <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>ff<span style="color:#f92672">:</span> Result.t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">,</span> <span style="color:#66d9ef">&#39;</span>e<span style="color:#f92672">),</span> fa<span style="color:#f92672">:</span> Result.t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">,</span> <span style="color:#66d9ef">&#39;</span>e<span style="color:#f92672">))</span> <span style="color:#f92672">=&gt;</span> switch<span style="color:#f92672">(</span>ff<span style="color:#f92672">,</span> fa<span style="color:#f92672">)</span> <span style="color:#f92672">{</span>
@@ -1579,7 +1726,12 @@ we don&rsquo;t have an error value to deal with. We could also use a plain old
 least one error - the caller has to deal with the empty list case, when we
 know that will never actually happen. This is all about <a href="https://www.youtube.com/watch?v=IcgmSRJHu_8">making impossible states
 impossible</a>.</p>
-<h1 id="applicative-validation-with-error-collection">Applicative validation with error collection</h1>
+<h1 id="applicative-validation-with-error-collection">
+  Applicative validation with error collection
+  <a class="heading-link" href="#applicative-validation-with-error-collection">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>We now have a type <code>Validation.t('a, 'e)</code> that looks a lot like a <code>Result.t('a, 'e)</code>,
 but has slightly different semantics in its <code>APPLICATIVE</code> instance. The <code>Result.t('a, 'e)</code>
 <code>apply</code> function &ldquo;fails fast&rdquo; in that it just propagates the first error it encounters
@@ -2020,7 +2172,12 @@ the idea of applicatives and parallel decoding of values.</p>
 <a href="https://github.com/mlms13/bs-decode">bs-decode</a> library. This library is also
 more robust than our simple example here, but the applicatives are there at
 the core!</p>
-<h1 id="the-applicative-laws">The applicative laws</h1>
+<h1 id="the-applicative-laws">
+  The applicative laws
+  <a class="heading-link" href="#the-applicative-laws">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>As I mentioned in the functor article, the typeclass laws are quite
 important, but given that this article is already quite long, I&rsquo;m just going
 to link to the laws on a couple different sites - I encourage you to check
@@ -2029,12 +2186,18 @@ these out on your own:</p>
 <li><a href="https://en.wikibooks.org/wiki/Haskell/Applicative_functors">Haskell Wikibooks Applicative functor laws</a></li>
 <li><a href="https://medium.com/@JosephJnk/an-introduction-to-applicative-functors-aea966799b1d">Applicative functors (using Flow type annotation)</a></li>
 </ul>
-<h1 id="conclusion">Conclusion</h1>
+<h1 id="conclusion">
+  Conclusion
+  <a class="heading-link" href="#conclusion">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>I hope you enjoyed my article on applicative functors - let me know if you
 find any problems with the code samples, or if you have any questions or
 suggestions.</p>
 
       </div>
+
 
       <footer>
         
@@ -2065,21 +2228,52 @@ suggestions.</p>
       </footer>
     </article>
 
-    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [
+          ['$', '$'], ['\\(', '\\)']
+        ],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
   </section>
 
       </div>
 
-      <footer class="footer">
-  <section class="container">
-    
-    
-    
-    
-  </section>
-</footer>
+      
+  <footer class="footer">
+    <section class="container">
+      
+      
+      
+      
+    </section>
+  </footer>
+
 
     </main>
+
+    
+      
+        
+        <script src="https://andywhite.xyz/js/dark-mode.min.0213e1773e6d1c5a644f847c67a6f8abac49a3776e2976f6008038af8c5b76a1.js"></script>
+      
+    
+
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+    
+      <script src="https://andywhite.xyz/js/main.js"></script>
+    
 
     
 <script type="application/javascript">
@@ -2096,6 +2290,15 @@ if (!doNotTrack) {
 </script>
 
 
+    
+
+    
+
+    
+
+    
+
+    
   </body>
 
 </html>

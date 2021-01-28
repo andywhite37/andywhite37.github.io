@@ -13,8 +13,8 @@
       <pubDate>Wed, 27 Jan 2021 18:43:19 -0700</pubDate>
       
       <guid>https://andywhite.xyz/posts/2021-01-27-rte-foundations/</guid>
-      <description>ReaderTaskEither&amp;lt;R, E, A&amp;gt; Foundations This post is meant to give some background information on the ReaderTaskEither&amp;lt;R, E, A&amp;gt; type from fp-ts.
-What is a ReaderTaskEither&amp;lt;R, E, A&amp;gt;? To understand ReaderTaskEither&amp;lt;R, E, A&amp;gt; (aka RTE), it&amp;rsquo;s important to understand some of the lower-level fp-ts &amp;ldquo;effect types&amp;rdquo; upon which RTE is built. Note that in fp-ts, some of these types might be encoded slightly differently than below, but the concepts should be the same.</description>
+      <description>ReaderTaskEither&amp;lt;R, E, A&amp;gt; Foundations    This post is meant to give some background information on the ReaderTaskEither&amp;lt;R, E, A&amp;gt; type from fp-ts.
+What is a ReaderTaskEither&amp;lt;R, E, A&amp;gt;?    To understand ReaderTaskEither&amp;lt;R, E, A&amp;gt; (aka RTE), it&amp;rsquo;s important to understand some of the lower-level fp-ts &amp;ldquo;effect types&amp;rdquo; upon which RTE is built. Note that in fp-ts, some of these types might be encoded slightly differently than below, but the concepts should be the same.</description>
     </item>
     
     <item>
@@ -23,7 +23,7 @@ What is a ReaderTaskEither&amp;lt;R, E, A&amp;gt;? To understand ReaderTaskEithe
       <pubDate>Thu, 07 Nov 2019 22:28:54 -0700</pubDate>
       
       <guid>https://andywhite.xyz/posts/2019-11-07-a-laymans-guide-to-applicatives-in-reasonml/</guid>
-      <description>Other posts in this series:  A Layman&amp;rsquo;s Guide to Functors in ReasonML  Applicative functors I&amp;rsquo;ll start this post off with a tantalizing quote that I first heard from a former colleague/mentor Kris Nuttycombe:
+      <description>Other posts in this series:     A Layman&amp;rsquo;s Guide to Functors in ReasonML  Applicative functors    I&amp;rsquo;ll start this post off with a tantalizing quote that I first heard from a former colleague/mentor Kris Nuttycombe:
  In functional programming, applicatives are the essence of parallel processing, and monads are the essence of sequential processing.
  In this post about applicative functors (aka applicatives), and my next planned post about monads, I hope to dig into this notion, and try to impart some intuition as to why this is true.</description>
     </item>
@@ -43,7 +43,7 @@ What is a ReaderTaskEither&amp;lt;R, E, A&amp;gt;? To understand ReaderTaskEithe
       <pubDate>Fri, 01 Nov 2019 13:31:20 -0600</pubDate>
       
       <guid>https://andywhite.xyz/projects/</guid>
-      <description>ReasonML My colleague Michael Martin-Smucker and I develop and maintain a small but growing ecosystem of libraries for ReasonML/BuckleScript in the Reazen GitHub org.
+      <description>ReasonML    My colleague Michael Martin-Smucker and I develop and maintain a small but growing ecosystem of libraries for ReasonML/BuckleScript in the Reazen GitHub org.
  relude  relude is our &amp;ldquo;standard library replacement&amp;rdquo; for ReasonML/BuckleScript. The purpose of this library is to provide a &amp;ldquo;batteries included&amp;rdquo; style of prelude/stdlib based on the powerful abstractions from category theory and abstract algebra. The library was primarily inspired by the ecosystems of Haskell, PureScript and Scala libraries like scalaz, cats, and shapeless In addition to the math-based abstractions, we provide all the other helper modules and functions that you&amp;rsquo;d expect from a reasonable standard library.</description>
     </item>
     

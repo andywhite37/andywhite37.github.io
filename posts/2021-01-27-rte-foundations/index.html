@@ -4,28 +4,31 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    
+      <script data-ad-client="ca-pub-7171078376920665" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
 
     <meta name="author" content="Andy White">
-    <meta name="description" content="Andy White&#39;s personal website">
+    <meta name="description" content="ReaderTaskEither&lt;R, E, A&gt; Foundations    This post is meant to give some background information on the ReaderTaskEither&lt;R, E, A&gt; type from fp-ts.
+What is a ReaderTaskEither&lt;R, E, A&gt;?    To understand ReaderTaskEither&lt;R, E, A&gt; (aka RTE), it&rsquo;s important to understand some of the lower-level fp-ts &ldquo;effect types&rdquo; upon which RTE is built. Note that in fp-ts, some of these types might be encoded slightly differently than below, but the concepts should be the same.">
     <meta name="keywords" content="blog,tech,developer,software,personal">
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="TypeScript &#43; fp-ts: ReaderTaskEither Foundations"/>
-<meta name="twitter:description" content="ReaderTaskEither&lt;R, E, A&gt; Foundations This post is meant to give some background information on the ReaderTaskEither&lt;R, E, A&gt; type from fp-ts.
-What is a ReaderTaskEither&lt;R, E, A&gt;? To understand ReaderTaskEither&lt;R, E, A&gt; (aka RTE), it&rsquo;s important to understand some of the lower-level fp-ts &ldquo;effect types&rdquo; upon which RTE is built. Note that in fp-ts, some of these types might be encoded slightly differently than below, but the concepts should be the same."/>
+<meta name="twitter:description" content="ReaderTaskEither&lt;R, E, A&gt; Foundations    This post is meant to give some background information on the ReaderTaskEither&lt;R, E, A&gt; type from fp-ts.
+What is a ReaderTaskEither&lt;R, E, A&gt;?    To understand ReaderTaskEither&lt;R, E, A&gt; (aka RTE), it&rsquo;s important to understand some of the lower-level fp-ts &ldquo;effect types&rdquo; upon which RTE is built. Note that in fp-ts, some of these types might be encoded slightly differently than below, but the concepts should be the same."/>
 
     <meta property="og:title" content="TypeScript &#43; fp-ts: ReaderTaskEither Foundations" />
-<meta property="og:description" content="ReaderTaskEither&lt;R, E, A&gt; Foundations This post is meant to give some background information on the ReaderTaskEither&lt;R, E, A&gt; type from fp-ts.
-What is a ReaderTaskEither&lt;R, E, A&gt;? To understand ReaderTaskEither&lt;R, E, A&gt; (aka RTE), it&rsquo;s important to understand some of the lower-level fp-ts &ldquo;effect types&rdquo; upon which RTE is built. Note that in fp-ts, some of these types might be encoded slightly differently than below, but the concepts should be the same." />
+<meta property="og:description" content="ReaderTaskEither&lt;R, E, A&gt; Foundations    This post is meant to give some background information on the ReaderTaskEither&lt;R, E, A&gt; type from fp-ts.
+What is a ReaderTaskEither&lt;R, E, A&gt;?    To understand ReaderTaskEither&lt;R, E, A&gt; (aka RTE), it&rsquo;s important to understand some of the lower-level fp-ts &ldquo;effect types&rdquo; upon which RTE is built. Note that in fp-ts, some of these types might be encoded slightly differently than below, but the concepts should be the same." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://andywhite.xyz/posts/2021-01-27-rte-foundations/" />
 <meta property="article:published_time" content="2021-01-27T18:43:19-07:00" />
 <meta property="article:modified_time" content="2021-01-27T18:43:19-07:00" />
 
 
-    
-      <base href="https://andywhite.xyz/posts/2021-01-27-rte-foundations/">
-    
     <title>
   TypeScript &#43; fp-ts: ReaderTaskEither Foundations · Andy White
 </title>
@@ -34,14 +37,14 @@ What is a ReaderTaskEither&lt;R, E, A&gt;? To understand ReaderTaskEither&lt;R, 
       <link rel="canonical" href="https://andywhite.xyz/posts/2021-01-27-rte-foundations/">
     
 
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://andywhite.xyz/fonts/forkawesome-webfont.woff2?v=1.1.7" as="font" type="font/woff2" crossorigin>
 
     
       
       
-      <link rel="stylesheet" href="https://andywhite.xyz/css/coder.min.28d751104f30c16da1aa1bb04015cbe662cacfe0d1b01af4f2240ad58580069c.css" integrity="sha256-KNdREE8wwW2hqhuwQBXL5mLKz&#43;DRsBr08iQK1YWABpw=" crossorigin="anonymous" media="screen" />
+      <link rel="stylesheet" href="https://andywhite.xyz/css/coder.min.f48a4da9bd32cecaff90717ae85529411dd087c10fc0dfca9c9c329c7327e5e1.css" integrity="sha256-9IpNqb0yzsr/kHF66FUpQR3Qh8EPwN/KnJwynHMn5eE=" crossorigin="anonymous" media="screen" />
     
 
     
@@ -51,44 +54,61 @@ What is a ReaderTaskEither&lt;R, E, A&gt;? To understand ReaderTaskEither&lt;R, 
     
 
     
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
-    
-      <script src="https://andywhite.xyz/js/main.js"></script>
-    
-    
+
     <link rel="icon" type="image/png" href="https://andywhite.xyz/images/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="https://andywhite.xyz/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="https://andywhite.xyz/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://andywhite.xyz/images/apple-touch-icon.png">
+
+    
 
     <meta name="generator" content="Hugo 0.80.0" />
   </head>
 
-  <body class=" ">
+  
+  
+  <body class="colorscheme-light"
+        onload=""
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
     <main class="wrapper">
       <nav class="navigation">
   <section class="container">
     <a class="navigation-title" href="https://andywhite.xyz/">
       Andy White
     </a>
-    <input type="checkbox" id="menu-toggle" />
-    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
-    <ul class="navigation-list">
-      
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
         
-          <li class="navigation-item">
-            <a class="navigation-link" href="https://andywhite.xyz/posts/">Blog</a>
-          </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://andywhite.xyz/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://andywhite.xyz/projects/">Projects</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://andywhite.xyz/about/">About</a>
+            </li>
+          
         
-          <li class="navigation-item">
-            <a class="navigation-link" href="https://andywhite.xyz/projects/">Projects</a>
-          </li>
         
-          <li class="navigation-item">
-            <a class="navigation-link" href="https://andywhite.xyz/about/">About</a>
-          </li>
-        
-      
-      
-    </ul>
+      </ul>
+    
   </section>
 </nav>
 
@@ -99,29 +119,34 @@ What is a ReaderTaskEither&lt;R, E, A&gt;? To understand ReaderTaskEither&lt;R, 
     <article>
       <header>
         <div class="post-title">
-          <h1 class="title">TypeScript &#43; fp-ts: ReaderTaskEither Foundations</h1>
+          <h1 class="title">
+            <a class="title-link" href="https://andywhite.xyz/posts/2021-01-27-rte-foundations/">
+              TypeScript &#43; fp-ts: ReaderTaskEither Foundations
+            </a>
+          </h1>
         </div>
         <div class="post-meta">
           <div class="date">
             <span class="posted-on">
-              <i class="fas fa-calendar"></i>
+              <i class="fa fa-calendar" aria-hidden="true"></i>
               <time datetime='2021-01-27T18:43:19-07:00'>
                 January 27, 2021
               </time>
             </span>
             <span class="reading-time">
-              <i class="fas fa-clock"></i>
-              15 minutes read
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              15-minute read
             </span>
           </div>
+          
           <div class="categories">
-  <i class="fas fa-folder"></i>
+  <i class="fa fa-folder" aria-hidden="true"></i>
     <a href="https://andywhite.xyz/categories/software-development/">Software Development</a>
       <span class="separator">•</span>
     <a href="https://andywhite.xyz/categories/functional-programming/">Functional Programming</a></div>
 
           <div class="tags">
-  <i class="fas fa-tag"></i>
+  <i class="fa fa-tag" aria-hidden="true"></i>
     <a href="https://andywhite.xyz/tags/typescript/">TypeScript</a>
       <span class="separator">•</span>
     <a href="https://andywhite.xyz/tags/fp-ts/">fp-ts</a>
@@ -132,11 +157,27 @@ What is a ReaderTaskEither&lt;R, E, A&gt;? To understand ReaderTaskEither&lt;R, 
       </header>
 
       <div>
-        <h1 id="readertaskeitherr-e-a-foundations"><code>ReaderTaskEither&lt;R, E, A&gt;</code> Foundations</h1>
+        
+        <h1 id="readertaskeitherr-e-a-foundations">
+  <code>ReaderTaskEither&lt;R, E, A&gt;</code> Foundations
+  <a class="heading-link" href="#readertaskeitherr-e-a-foundations">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>This post is meant to give some background information on the <a href="https://github.com/gcanti/fp-ts/blob/master/src/ReaderTaskEither.ts">ReaderTaskEither&lt;R, E, A&gt;</a> type from <a href="https://gcanti.github.io/fp-ts/">fp-ts</a>.</p>
-<h2 id="what-is-a-readertaskeitherr-e-a">What is a <code>ReaderTaskEither&lt;R, E, A&gt;</code>?</h2>
+<h2 id="what-is-a-readertaskeitherr-e-a">
+  What is a <code>ReaderTaskEither&lt;R, E, A&gt;</code>?
+  <a class="heading-link" href="#what-is-a-readertaskeitherr-e-a">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>To understand <code>ReaderTaskEither&lt;R, E, A&gt;</code> (aka <code>RTE</code>), it&rsquo;s important to understand some of the lower-level <code>fp-ts</code> &ldquo;effect types&rdquo; upon which <code>RTE</code> is built. Note that in fp-ts, some of these types might be encoded slightly differently than below, but the concepts should be the same. Also note that nearly all of the types and concepts below have a history that predates <code>fp-ts</code> (and TypeScript for that matter) by decades - many of these ideas come from languages like Haskell, Scala, PureScript, OCaml, and others.</p>
-<h2 id="ioa"><code>IO&lt;A&gt;</code></h2>
+<h2 id="ioa">
+  <code>IO&lt;A&gt;</code>
+  <a class="heading-link" href="#ioa">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">IO</span>&lt;<span style="color:#f92672">A</span>&gt; <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">A</span>
 </code></pre></div><ul>
 <li>Sync/async: <strong>sync</strong></li>
@@ -144,7 +185,12 @@ What is a ReaderTaskEither&lt;R, E, A&gt;? To understand ReaderTaskEither&lt;R, 
 <li>Can depend on explicitly-declared contextual info: <strong>no</strong></li>
 </ul>
 <p><code>IO&lt;A&gt;</code> represents a lazy, synchronous computation that, when run, may perform side effects and then produce a value of type <code>A</code>. The side effects might be involved with the production of the <code>A</code> value (e.g. reading from a <code>DOM</code> element, <code>localStorage</code>, etc.), or might be unrelated, &ldquo;unobservable&rdquo; side effect(s), like synchronously writing to a file, sending a message on a network connection, writing to the <code>DOM</code>, etc. <code>IO&lt;A&gt;</code> is intended to be used for synchronous effectful computations that are not expected to fail, as there is no way to represent failure other than <code>throw</code>ing an <code>Error</code> from the function, which is undesirable, and would be unexpected by the caller. If you have a synchronous, effectful operation that can fail, see <code>IOEither&lt;E, A&gt;</code>.</p>
-<h3 id="aside-iovoid">Aside: <code>IO&lt;void&gt;</code></h3>
+<h3 id="aside-iovoid">
+  Aside: <code>IO&lt;void&gt;</code>
+  <a class="heading-link" href="#aside-iovoid">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <p><code>IO&lt;void&gt;</code> is a type which represents a side-effecting computation that produces no value at all - its sole purpose is to perform side effects. This could be something like writing to <code>localStorage</code>, writing a log message, dispatching a redux action, drawning to the screen, writing to the <code>DOM</code>, etc.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mySideEffect</span>: <span style="color:#66d9ef">IO</span>&lt;<span style="color:#f92672">void</span>&gt; <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
   <span style="color:#a6e22e">writeToDatabase</span>(<span style="color:#e6db74">&#39;my-key&#39;</span>, <span style="color:#e6db74">&#39;my-value&#39;</span>)
@@ -153,12 +199,22 @@ What is a ReaderTaskEither&lt;R, E, A&gt;? To understand ReaderTaskEither&lt;R, 
   document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;my-id&#39;</span>).<span style="color:#a6e22e">innerHTML</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;hi&#39;</span>
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;hi&#39;</span>)
 }
-</code></pre></div><h3 id="aside-lazya">Aside: <code>Lazy&lt;A&gt;</code></h3>
+</code></pre></div><h3 id="aside-lazya">
+  Aside: <code>Lazy&lt;A&gt;</code>
+  <a class="heading-link" href="#aside-lazya">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Lazy</span>&lt;<span style="color:#f92672">A</span>&gt; <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">A</span>
 </code></pre></div><p><code>Lazy&lt;A&gt;</code> (aka a &ldquo;thunk&rdquo;) represents a synchronous computation that produces a value of type <code>A</code> when the function is called. By convention, the <code>Lazy&lt;A&gt;</code> type does not typically imply the presence of side effects - the conventional semantics of a type like <code>Lazy&lt;A&gt;</code> are more about the deferral of a potentially expensive, but typically pure computation.</p>
 <p><code>Lazy&lt;A&gt;</code> and <code>IO&lt;A&gt;</code> have the same type, so what&rsquo;s the difference? There&rsquo;s not really a difference other than semantics and convention - <code>Lazy&lt;A&gt;</code> would typically be expected to be used for a lazy, but pure computation, whereas <code>IO&lt;A&gt;</code> is used for deferring the execution of side effects.</p>
 <p>One other reason for the existence of both of these types is that in <code>fp-ts</code> v1, the <code>IO&lt;A&gt;</code> type was encoded slightly differently than it is in v2+, so there actually was a type-level difference between <code>Lazy&lt;A&gt;</code> and <code>IO&lt;A&gt;</code> at that time. In fp-ts v2+, the encoding of <code>IO&lt;A&gt;</code> was changed to simply <code>() =&gt; A</code> (or the <code>interface</code> encoding of that function type), so there is no longer a practical difference in the types.</p>
-<h2 id="ioeithere-a"><code>IOEither&lt;E, A&gt;</code></h2>
+<h2 id="ioeithere-a">
+  <code>IOEither&lt;E, A&gt;</code>
+  <a class="heading-link" href="#ioeithere-a">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">IOEither</span>&lt;<span style="color:#f92672">E</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">A</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">IO</span>&lt;<span style="color:#f92672">Either</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">E</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">A</span>&gt;<span style="color:#f92672">&gt;</span>
                     <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Either</span>&lt;<span style="color:#f92672">E</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">A</span>&gt;;
 </code></pre></div><ul>
@@ -167,7 +223,12 @@ What is a ReaderTaskEither&lt;R, E, A&gt;? To understand ReaderTaskEither&lt;R, 
 <li>Can depend on contextual info: <strong>no</strong></li>
 </ul>
 <p><code>IOEither&lt;E, A&gt;</code> represents a synchronous, lazy computation that can produce a value of type <code>A</code>, or fail with an error of type <code>E</code>. This is intended to be used for synchronous effectful code that has the possibility of failure. The <code>IO&lt;_&gt;</code> part implies the presence of side effects, because if there were no effects, it would probably be better to just use <code>Either&lt;E, A&gt;</code>, or potentially <code>Lazy&lt;Either&lt;E, A&gt;&gt;</code>. The <code>Either&lt;E, A&gt;</code> part of the type allows for the representation of errors in the effectful computation.</p>
-<h2 id="promisea"><code>Promise&lt;A&gt;</code></h2>
+<h2 id="promisea">
+  <code>Promise&lt;A&gt;</code>
+  <a class="heading-link" href="#promisea">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <ul>
 <li>Sync/async: <strong>async</strong></li>
 <li>Can fail: <strong>yes</strong> (with non-generic/non-polymorphic <code>any</code> error)</li>
@@ -175,7 +236,12 @@ What is a ReaderTaskEither&lt;R, E, A&gt;? To understand ReaderTaskEither&lt;R, 
 </ul>
 <p><code>Promise&lt;A&gt;</code> Represents an eagerly-executed (i.e. non-lazy) async computation that can eventually succeed with a value of type <code>A</code>, or fail with an error of type <code>any</code>. The computation starts to execute as soon as the <code>Promise&lt;A&gt;</code> is constructed, so the type is therefore not lazy, and not referentially transparent, which makes <code>Promise&lt;A&gt;</code> a less appealing choice for pure functional programming. <code>Promise&lt;A&gt;</code> also has an implicit memoization of the success or failure result.</p>
 <p>Because the computation is async, there is no way to synchronously extract a value of type <code>A</code> directly out of a <code>Promise&lt;A&gt;</code>. In other words, there is no function of type <code>Promise&lt;A&gt; =&gt; A</code>. The value that is eventually produced by a <code>Promise&lt;A&gt;</code> can be accessed by chaining on a continuation callback via <code>.then((a: A) =&gt; ...)</code>. Or you can use the <code>await</code> approach, which is essentially just syntax sugar for <code>.then</code>.</p>
-<h2 id="taska"><code>Task&lt;A&gt;</code></h2>
+<h2 id="taska">
+  <code>Task&lt;A&gt;</code>
+  <a class="heading-link" href="#taska">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Task</span>&lt;<span style="color:#f92672">A</span>&gt; <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Promise</span>&lt;<span style="color:#f92672">A</span>&gt;
 </code></pre></div><ul>
 <li>Sync/async: <strong>async</strong></li>
@@ -184,7 +250,12 @@ What is a ReaderTaskEither&lt;R, E, A&gt;? To understand ReaderTaskEither&lt;R, 
 </ul>
 <p><code>Task&lt;A&gt;</code> represents a lazily-executed async computation that can eventually produce a value of type <code>A</code>. In fp-ts, <code>Task&lt;A&gt;</code> is currently implemented as a <code>Lazy&lt;Promise&lt;A&gt;&gt;</code> or <code>() =&gt; Promise&lt;A&gt;</code>, so technically, a <code>Task&lt;A&gt;</code> can fail &ldquo;under the hood,&rdquo; but by convention, <code>Task&lt;A&gt;</code> is intended to be used for async computations that are not expected to fail. In other words, if you use a <code>Task&lt;A&gt;</code> for a computation, and the underlying <code>Promise&lt;A&gt;</code> fails, you&rsquo;ve made a programming error in your choice of <code>Task&lt;A&gt;</code> as your effect type, and you&rsquo;ve not likely made any attempt to handle errors from the <code>Task&lt;A&gt;</code>, so your program will likely and rightfully crash. The canonical example of an async operation that is not expected to fail is a basic deferred function call, like a <code>setTimeout</code>. If you are dealing with an async operation that has the possibility of failure, you should use <code>TaskEither&lt;E, A&gt;</code> instead.</p>
 <p>So if <code>Task&lt;A&gt;</code> is just a lazy <code>Promise&lt;A&gt;</code>, why not just use <code>Promise&lt;A&gt;</code>? The reason is that a value of type <code>Task&lt;A&gt;</code> is a pure and referentially-transparent <strong>description</strong> of an effectful computation, whereas a value of type <code>Promise&lt;A&gt;</code> is an impure, referentially-opaque, already-running (or possibly already-completed) effectful computation. Another intuition is that a <code>Task&lt;A&gt;</code> is a &ldquo;canned&rdquo; or &ldquo;freeze-dried&rdquo; side effect that you can pass around, compose, substitute, etc., and then open or thaw it out it at the right time; whereas, a <code>Promise&lt;A&gt;</code> is the contents of the can - it&rsquo;s a little messier to pass around. The simple act of making the evaluation of the <code>Promise&lt;A&gt;</code> lazy makes <code>Task&lt;A&gt;</code> pure. When run, the <code>Task&lt;A&gt;</code> will perform impure side effects, but the <code>Task</code> itself is pure. The same idea applies to <code>IO&lt;A&gt; = () =&gt; A</code> compared to an effectful expression that produces an <code>A</code> - the act of deferring the side effects make the <code>IO&lt;A&gt;</code> type pure. This idea may take some time and hands-on practice to sink in. Purity and referential transparency are important concepts in pure functional programming because they allow you to make assumptions about the behavior of your program based on provable mathematical laws, perform substitutions of expressions, variables, and values both in actuality and mentally, and generally reason about the behavior of your program just by looking at the types. Without some of these principles, some of which are enforced by the compiler and some of which are followed by convention and discipline, you can&rsquo;t really make any assumptions about the behavior of a program, because any piece of code can do just about anything it wants at any time. By constraining ourselves to a set of well-behaved types and principles, we can eliminate whole classes of bugs and unexpected behaviors, and make our code more maintainable and reusable.</p>
-<h2 id="taskeithere-a"><code>TaskEither&lt;E, A&gt;</code></h2>
+<h2 id="taskeithere-a">
+  <code>TaskEither&lt;E, A&gt;</code>
+  <a class="heading-link" href="#taskeithere-a">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">TaskEither</span>&lt;<span style="color:#f92672">E</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">A</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">Task</span>&lt;<span style="color:#f92672">Either</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">E</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">A</span>&gt;<span style="color:#f92672">&gt;</span>
                       <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Promise</span>&lt;<span style="color:#f92672">Either</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">E</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">A</span>&gt;<span style="color:#f92672">&gt;</span>;
 </code></pre></div><ul>
@@ -194,7 +265,12 @@ What is a ReaderTaskEither&lt;R, E, A&gt;? To understand ReaderTaskEither&lt;R, 
 </ul>
 <p><code>TaskEither&lt;E, A&gt;</code> represents a lazy async computation that can succeed with a value of type <code>A</code>, or fail with an error of type <code>E</code>. The underlying <code>Promise</code> can actually also fail &ldquo;under the hood&rdquo; with it&rsquo;s own unknown (<code>any</code>) error type, but by convention, errors in <code>TaskEither&lt;E, A&gt;</code> are meant to be lifted into the <code>Either&lt;E, A&gt;</code> in the <code>Promise</code>&rsquo;s &ldquo;success channel.&rdquo; If you end up with a failed Promise in a <code>TaskEither</code>, you&rsquo;ve made a programming error by not lifting an error into the <code>Either&lt;E, A&gt;</code> somewhere, and your program will likely crash. This pitfall is an unfortunate consequence of using <code>Promise&lt;A&gt;</code> as the basis of the <code>Task</code>-based effects in fp-ts. However, <code>Promise&lt;A&gt;</code> is so ubiquitous in JavaScript and TypeScript, that by using <code>Promise&lt;A&gt;</code> under the hood, you gain the ability to more easily interop with most existing JavaScript libraries, and you can leverage some existing familiarity with <code>Promise&lt;A&gt;</code> for learning purposes. There are async effect libraries that are not backed by <code>Promise&lt;A&gt;</code> that can be explored for a better understanding of this.</p>
 <p>Like <code>Promise&lt;A&gt;</code>, you can&rsquo;t &ldquo;get the value out&rdquo; of a <code>Task&lt;A&gt;</code> nor anything based on <code>Task</code>. You access the value by composing on functions like <code>map</code>, <code>chain</code>, and others.</p>
-<h2 id="readerr-a"><code>Reader&lt;R, A&gt;</code></h2>
+<h2 id="readerr-a">
+  <code>Reader&lt;R, A&gt;</code>
+  <a class="heading-link" href="#readerr-a">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Reader</span>&lt;<span style="color:#f92672">R</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">A</span>&gt; <span style="color:#f92672">=</span> (<span style="color:#a6e22e">r</span>: <span style="color:#66d9ef">R</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">A</span>
 </code></pre></div><ul>
 <li>Sync/async: <strong>sync</strong></li>
@@ -202,7 +278,12 @@ What is a ReaderTaskEither&lt;R, E, A&gt;? To understand ReaderTaskEither&lt;R, 
 <li>Can depend on contextual info: <strong>yes</strong></li>
 </ul>
 <p><code>Reader&lt;R, A&gt;</code> represents a synchronous computation that produces a value of type <code>A</code> by reading from some contextual value provided via the function argument of type <code>R</code>. A <code>Reader&lt;R, A&gt;</code> is just as simple as it looks - it&rsquo;s just a function that takes an argument <code>R</code> and produces a value <code>A</code>. The key aspect of <code>Reader</code> is encoding the ability for a computation to utilize an <strong>explicit</strong> input value to perform its computation. If you think about the effect types we&rsquo;ve seen so far (<code>IO&lt;A&gt;</code>, <code>TaskEither&lt;E, A&gt;</code>, etc.), they only deal with outputs - the <code>E</code> error type or the <code>A</code> success type. <code>Reader</code> introduces the concept of an input, and gives you the power to compose effects that depend on different inputs to run. How <code>Reader</code> is used in practice is where it gets more interesting. Note that a <code>Reader&lt;R, A&gt;</code> does not typically imply the presence of side effects by itself - for something like that, you&rsquo;d probably use <code>type ReaderIO&lt;R, A&gt; = Reader&lt;R, IO&lt;A&gt;&gt;</code>, <code>ReaderIOEither&lt;R, E, A&gt; = Reader&lt;R, IOEither&lt;E, A&gt;&gt;</code>, or the <code>ReaderTask*</code> types.</p>
-<h2 id="readerior-a-and-readerioeitherr-e-a"><code>ReaderIO&lt;R, A&gt;</code> and <code>ReaderIOEither&lt;R, E, A&gt;</code></h2>
+<h2 id="readerior-a-and-readerioeitherr-e-a">
+  <code>ReaderIO&lt;R, A&gt;</code> and <code>ReaderIOEither&lt;R, E, A&gt;</code>
+  <a class="heading-link" href="#readerior-a-and-readerioeitherr-e-a">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ReaderIO</span>&lt;<span style="color:#f92672">R</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">A</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">Reader</span>&lt;<span style="color:#f92672">R</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">IO</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">A</span>&gt;<span style="color:#f92672">&gt;</span>
                     <span style="color:#f92672">=</span> <span style="color:#a6e22e">Reader</span>&lt;<span style="color:#f92672">R</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#960050;background-color:#1e0010">()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#a6e22e">A</span><span style="color:#f92672">&gt;</span>
                     <span style="color:#f92672">=</span> (<span style="color:#a6e22e">r</span>: <span style="color:#66d9ef">R</span>) <span style="color:#f92672">=&gt;</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">A</span>;
@@ -213,7 +294,12 @@ What is a ReaderTaskEither&lt;R, E, A&gt;? To understand ReaderTaskEither&lt;R, 
 </code></pre></div><p>As mentioned above, these types simply combine the capabilities of <code>Reader&lt;R, A&gt;</code> with <code>IO&lt;A&gt;</code> or <code>IOEither&lt;E, A&gt;</code> - i.e. reading from some input value in order to perform a side-effectful computation.</p>
 <p>Note that <code>ReaderIOEither</code> may not exist in <code>fp-ts</code> at the time of this writing, but it&rsquo;s easy to create by just following or copying how something like <code>ReaderTask&lt;R, A&gt;</code> or <code>ReaderTaskEither&lt;R, E, A&gt;</code> are implemented. See also <a href="https://github.com/gcanti/fp-ts-contrib">fp-ts-contrib</a> for other variations like <code>StateTaskEither&lt;S, E, A&gt;</code>.</p>
 <p>This approach of &ldquo;stacking&rdquo; effect types is similar to how monad transformers work, and is sometimes referred to as vertical composition of effects - a &ldquo;stack of effects&rdquo; or an &ldquo;effect stack.&rdquo; The idea is that you create a &ldquo;more capable&rdquo; effect type (i.e. one that is able to handle more flexible or expressive effects) by combining the capabilities of less-capable effects.</p>
-<h2 id="readertaskr-a"><code>ReaderTask&lt;R, A&gt;</code></h2>
+<h2 id="readertaskr-a">
+  <code>ReaderTask&lt;R, A&gt;</code>
+  <a class="heading-link" href="#readertaskr-a">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ReaderTask</span>&lt;<span style="color:#f92672">R</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">A</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">Reader</span>&lt;<span style="color:#f92672">R</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Task</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">A</span>&gt;<span style="color:#f92672">&gt;</span>
                       <span style="color:#f92672">=</span> <span style="color:#a6e22e">Reader</span>&lt;<span style="color:#f92672">R</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#960050;background-color:#1e0010">()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#a6e22e">Promise</span>&lt;<span style="color:#f92672">A</span>&gt;<span style="color:#f92672">&gt;</span>
                       <span style="color:#f92672">=</span> (<span style="color:#a6e22e">r</span>: <span style="color:#66d9ef">R</span>) <span style="color:#f92672">=&gt;</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Promise</span>&lt;<span style="color:#f92672">A</span>&gt;
@@ -223,7 +309,12 @@ What is a ReaderTaskEither&lt;R, E, A&gt;? To understand ReaderTaskEither&lt;R, 
 <li>Can depend on contextual info: <strong>yes</strong></li>
 </ul>
 <p>As you might imagine, a <code>ReaderTask&lt;R, A&gt;</code> combines the capabilities of <code>Reader&lt;R, A&gt;</code> and <code>Task&lt;A&gt;</code>. <code>Reader</code> provides the ability to depend on some input to run, and <code>Task</code> provides the ability to perform an async computation that can&rsquo;t fail. To add the ability to fail, continue on to <code>ReaderTaskEither&lt;R, E, A&gt;</code>.</p>
-<h2 id="readertaskeitherr-e-a"><code>ReaderTaskEither&lt;R, E, A&gt;</code></h2>
+<h2 id="readertaskeitherr-e-a">
+  <code>ReaderTaskEither&lt;R, E, A&gt;</code>
+  <a class="heading-link" href="#readertaskeitherr-e-a">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>Below is a step-by-step expansion of <code>ReaderTaskEither&lt;R, E, A&gt;</code> into it&rsquo;s underlying type:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ReaderTaskEither</span>&lt;<span style="color:#f92672">R</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">E</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">A</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">Reader</span>&lt;<span style="color:#f92672">R</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">TaskEither</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">E</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">A</span>&gt;<span style="color:#f92672">&gt;</span>
                                <span style="color:#f92672">=</span> (<span style="color:#a6e22e">r</span>: <span style="color:#66d9ef">R</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">TaskEither</span>&lt;<span style="color:#f92672">E</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">A</span>&gt;
@@ -250,7 +341,12 @@ What is a ReaderTaskEither&lt;R, E, A&gt;? To understand ReaderTaskEither&lt;R, 
 <li><code>Either</code> - grants the ability to perform a computation that can fail with a known error type</li>
 </ul>
 <p>One high-level thing to note is that you can &ldquo;provide&rdquo; the <code>Reader</code> environment by passing in the <code>R</code> value, and you are left with a still-pure <code>TaskEither&lt;E, A&gt;</code> value, which you can continue to use in a pure way. The computation only runs when the <code>TaskEither&lt;E, A&gt;</code> is &ldquo;run&rdquo; (i.e. called), which finally constructs the <code>Promise&lt;Either&lt;E, A&gt;&gt;</code> and starts the effectful computation. You typically &ldquo;run&rdquo; an effect at the last possible moment, so that you can build your code using completely pure functions, and only drop down into impure execution at the very &ldquo;end,&rdquo; like the end of a main program or the end of some context within your application, like when you pass control back to a framework (i.e. the end of a <code>DOM</code> event handler function), or you are leaving some context and the effect needs to happen at that time. The definition of this elusive &ldquo;end&rdquo; concept takes some time and hands-on practice to fully grasp.</p>
-<h2 id="effect-rotation">&ldquo;Effect rotation&rdquo;</h2>
+<h2 id="effect-rotation">
+  &ldquo;Effect rotation&rdquo;
+  <a class="heading-link" href="#effect-rotation">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>One interesting property of <code>RTE</code> is the ability for it to represent some of it&rsquo;s less-capable underlying effect types, through creative application of its type params.</p>
 <p>E.g. to denote an effect that has no <code>Reader</code> environment (e.g. an effect that doesn&rsquo;t depend on any contextual info), you can use the <code>unknown</code> type (or some other &ldquo;empty&rdquo; type) as the <code>R</code>, like:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">NoEnvRTE</span>&lt;<span style="color:#f92672">E</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">A</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">ReaderTaskEither</span>&lt;<span style="color:#f92672">unknown</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">E</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">A</span>&gt;
@@ -260,7 +356,12 @@ What is a ReaderTaskEither&lt;R, E, A&gt;? To understand ReaderTaskEither&lt;R, 
 </code></pre></div><p>For the error type, we use <code>never</code>, because the <code>never</code> type has no inhabitants, so it&rsquo;s impossible to ever get this type into the failed state, because there&rsquo;s no way to create a value of type <code>never</code>. This type is isomorphic with <code>Reader&lt;R, Task&lt;A&gt;&gt;</code> or <code>ReaderTask&lt;R, A&gt;</code>. This type is interesting because it can be used as a signal that you&rsquo;ve &ldquo;handled&rdquo; any errors, probably by converting any possible errors in a value of type <code>A</code> in the success channel, and eliminating the need for any successive functions to deal with any errors at all.</p>
 <p>For a computation that has no <code>Reader</code> env and that additionally can&rsquo;t fail, you can use <code>ReaderTaskEither&lt;unknown, never, A&gt;</code>, which is isomorphic with <code>Task&lt;A&gt;</code>. To reiterate, the reason we use <code>unknown</code> for the reader type and <code>never</code> for the <code>E</code> type is that we want to be able to provide this reader with any value to satisfy the reader argument, but we want to ensure that the effect can&rsquo;t fail by disallowing any value from appearing in the <code>Left</code> of the <code>Either&lt;E, A&gt;</code>. Ensuring an effect can&rsquo;t fail means that you have to handle any possible errors by expressing them as a value of type <code>A</code> in the success channel.</p>
 <p>This ability for this one type <code>RTE&lt;R, E, A&gt;</code> to represent these different variations of effects was dubbed &ldquo;effect rotation&rdquo; by John De Goes, the creator of ZIO, <a href="https://degoes.net/articles/rotating-effects">in one of his earlier articles</a> about the ideas behind <code>ZIO</code>. This is considered &ldquo;rotation&rdquo; because with monad transformers, you might create these effect combinations by (vertically) &ldquo;stacking&rdquo; different effect types, but with <code>RTE</code>, you achieve these effect capability variations by applying different types at a single, &ldquo;flat&rdquo; level (i.e. &ldquo;horizontally&rdquo;). (<code>RTE</code> itself is a stack of effect effect types, so the analogy isn&rsquo;t perfect, but the way the <code>RTE</code> type is expressed is is similar to <code>ZIO</code> in spirit).</p>
-<h2 id="composing-effects">Composing effects</h2>
+<h2 id="composing-effects">
+  Composing effects
+  <a class="heading-link" href="#composing-effects">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>For all of the above effect types (<code>IO</code>, <code>Task</code>, <code>RTE</code>, etc.), it&rsquo;s possible to create <code>Functor</code>, <code>Applicative</code>, <code>Monad</code>, and a variety of other typeclass instances. These typeclass instances allow us to compose or combine our effectful computations into more complex computations and to eventually build whole programs based on <code>RTE</code>. If you&rsquo;ve never done it before, it&rsquo;s useful to go through the exercise of implementing the following functions for all of the above types, e.g.:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#75715e">// Functor
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ioMap</span> <span style="color:#f92672">=</span> &lt;<span style="color:#f92672">A</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">B</span>&gt;(<span style="color:#a6e22e">f</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">a</span>: <span style="color:#66d9ef">A</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">B</span>) <span style="color:#f92672">=&gt;</span> (<span style="color:#a6e22e">io</span>: <span style="color:#66d9ef">IO</span>&lt;<span style="color:#f92672">A</span>&gt;)<span style="color:#f92672">:</span> <span style="color:#a6e22e">IO</span>&lt;<span style="color:#f92672">B</span>&gt; <span style="color:#f92672">=&gt;</span> { ... }
@@ -272,10 +373,16 @@ What is a ReaderTaskEither&lt;R, E, A&gt;? To understand ReaderTaskEither&lt;R, 
 <span style="color:#75715e">// Monad
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ioChain</span> <span style="color:#f92672">=</span> &lt;<span style="color:#f92672">A</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">B</span>&gt;(<span style="color:#a6e22e">f</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">a</span>: <span style="color:#66d9ef">A</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">IO</span>&lt;<span style="color:#f92672">B</span>&gt;) <span style="color:#f92672">=&gt;</span> (<span style="color:#a6e22e">io</span>: <span style="color:#66d9ef">IO</span>&lt;<span style="color:#f92672">A</span>&gt;)<span style="color:#f92672">:</span> <span style="color:#a6e22e">IO</span>&lt;<span style="color:#f92672">B</span>&gt; <span style="color:#f92672">=&gt;</span> { ... }
 </code></pre></div><p>Try implementing these for <code>IO&lt;A&gt;</code>, then try again with all the other effect types. This is an interesting exercise to see how function-based types work with operations like <code>map</code> and <code>chain</code>, compared to how the simpler data structures like <code>Option</code>, <code>Either</code>, and <code>RemoteData</code> work. The main guidance is to &ldquo;follow the types&rdquo; - think about what types you are given and what type of value you are trying to produce in the end.</p>
-<h1 id="conclusion">Conclusion</h1>
+<h1 id="conclusion">
+  Conclusion
+  <a class="heading-link" href="#conclusion">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p><code>ReaderTaskEither&lt;R, E, A&gt;</code> combines the capabilities of <code>Reader&lt;R, A&gt;</code>, <code>Task&lt;A&gt;</code> and <code>Either&lt;E, A&gt;</code> to create a type that can handle most effectful computations needed for application development. In another document, we&rsquo;ll explore more real-world usage examples and patterns of <code>RTE</code>.</p>
 
       </div>
+
 
       <footer>
         
@@ -306,21 +413,52 @@ What is a ReaderTaskEither&lt;R, E, A&gt;? To understand ReaderTaskEither&lt;R, 
       </footer>
     </article>
 
-    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [
+          ['$', '$'], ['\\(', '\\)']
+        ],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
   </section>
 
       </div>
 
-      <footer class="footer">
-  <section class="container">
-    
-    
-    
-    
-  </section>
-</footer>
+      
+  <footer class="footer">
+    <section class="container">
+      
+      
+      
+      
+    </section>
+  </footer>
+
 
     </main>
+
+    
+      
+        
+        <script src="https://andywhite.xyz/js/dark-mode.min.0213e1773e6d1c5a644f847c67a6f8abac49a3776e2976f6008038af8c5b76a1.js"></script>
+      
+    
+
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+    
+      <script src="https://andywhite.xyz/js/main.js"></script>
+    
 
     
 <script type="application/javascript">
@@ -337,6 +475,15 @@ if (!doNotTrack) {
 </script>
 
 
+    
+
+    
+
+    
+
+    
+
+    
   </body>
 
 </html>

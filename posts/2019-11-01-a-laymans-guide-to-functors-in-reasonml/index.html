@@ -4,9 +4,14 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    
+      <script data-ad-client="ca-pub-7171078376920665" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+    
 
     <meta name="author" content="Andy White">
-    <meta name="description" content="Andy White&#39;s personal website">
+    <meta name="description" content="In my intro post I talked about my background and how I started on my journey to learn typed functional programming. I&rsquo;ll again preface these posts with a note that I don&rsquo;t have a background in category theory, so these posts are intended to help introduce things from a boots-on-the-ground perspective. Please feel free to correct me on any points I&rsquo;ve messed up. I&rsquo;m also not an OCaml expert, so there may be techniques or coding conventions here that are not completely correct.">
     <meta name="keywords" content="blog,tech,developer,software,personal">
 
     <meta name="twitter:card" content="summary"/>
@@ -21,9 +26,6 @@
 <meta property="article:modified_time" content="2019-11-01T17:50:46-06:00" />
 
 
-    
-      <base href="https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml/">
-    
     <title>
   A Layman&#39;s Guide to Functors in ReasonML · Andy White
 </title>
@@ -32,14 +34,14 @@
       <link rel="canonical" href="https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml/">
     
 
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://andywhite.xyz/fonts/forkawesome-webfont.woff2?v=1.1.7" as="font" type="font/woff2" crossorigin>
 
     
       
       
-      <link rel="stylesheet" href="https://andywhite.xyz/css/coder.min.28d751104f30c16da1aa1bb04015cbe662cacfe0d1b01af4f2240ad58580069c.css" integrity="sha256-KNdREE8wwW2hqhuwQBXL5mLKz&#43;DRsBr08iQK1YWABpw=" crossorigin="anonymous" media="screen" />
+      <link rel="stylesheet" href="https://andywhite.xyz/css/coder.min.f48a4da9bd32cecaff90717ae85529411dd087c10fc0dfca9c9c329c7327e5e1.css" integrity="sha256-9IpNqb0yzsr/kHF66FUpQR3Qh8EPwN/KnJwynHMn5eE=" crossorigin="anonymous" media="screen" />
     
 
     
@@ -49,44 +51,61 @@
     
 
     
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
-    
-      <script src="https://andywhite.xyz/js/main.js"></script>
-    
-    
+
     <link rel="icon" type="image/png" href="https://andywhite.xyz/images/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="https://andywhite.xyz/images/favicon-16x16.png" sizes="16x16">
+
+    <link rel="apple-touch-icon" href="https://andywhite.xyz/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://andywhite.xyz/images/apple-touch-icon.png">
+
+    
 
     <meta name="generator" content="Hugo 0.80.0" />
   </head>
 
-  <body class=" ">
+  
+  
+  <body class="colorscheme-light"
+        onload=""
+  >
+    
+<div class="float-container">
+    <a id="dark-mode-toggle" class="colorscheme-toggle">
+        <i class="fa fa-adjust fa-fw" aria-hidden="true"></i>
+    </a>
+</div>
+
+
     <main class="wrapper">
       <nav class="navigation">
   <section class="container">
     <a class="navigation-title" href="https://andywhite.xyz/">
       Andy White
     </a>
-    <input type="checkbox" id="menu-toggle" />
-    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
-    <ul class="navigation-list">
-      
+    
+      <input type="checkbox" id="menu-toggle" />
+      <label class="menu-button float-right" for="menu-toggle">
+        <i class="fa fa-bars fa-fw" aria-hidden="true"></i>
+      </label>
+      <ul class="navigation-list">
         
-          <li class="navigation-item">
-            <a class="navigation-link" href="https://andywhite.xyz/posts/">Blog</a>
-          </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://andywhite.xyz/posts/">Blog</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://andywhite.xyz/projects/">Projects</a>
+            </li>
+          
+            <li class="navigation-item">
+              <a class="navigation-link" href="https://andywhite.xyz/about/">About</a>
+            </li>
+          
         
-          <li class="navigation-item">
-            <a class="navigation-link" href="https://andywhite.xyz/projects/">Projects</a>
-          </li>
         
-          <li class="navigation-item">
-            <a class="navigation-link" href="https://andywhite.xyz/about/">About</a>
-          </li>
-        
-      
-      
-    </ul>
+      </ul>
+    
   </section>
 </nav>
 
@@ -97,29 +116,34 @@
     <article>
       <header>
         <div class="post-title">
-          <h1 class="title">A Layman&#39;s Guide to Functors in ReasonML</h1>
+          <h1 class="title">
+            <a class="title-link" href="https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml/">
+              A Layman&#39;s Guide to Functors in ReasonML
+            </a>
+          </h1>
         </div>
         <div class="post-meta">
           <div class="date">
             <span class="posted-on">
-              <i class="fas fa-calendar"></i>
+              <i class="fa fa-calendar" aria-hidden="true"></i>
               <time datetime='2019-11-01T17:50:46-06:00'>
                 November 1, 2019
               </time>
             </span>
             <span class="reading-time">
-              <i class="fas fa-clock"></i>
-              41 minutes read
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+              41-minute read
             </span>
           </div>
+          
           <div class="categories">
-  <i class="fas fa-folder"></i>
+  <i class="fa fa-folder" aria-hidden="true"></i>
     <a href="https://andywhite.xyz/categories/software-development/">Software Development</a>
       <span class="separator">•</span>
     <a href="https://andywhite.xyz/categories/functional-programming/">Functional Programming</a></div>
 
           <div class="tags">
-  <i class="fas fa-tag"></i>
+  <i class="fa fa-tag" aria-hidden="true"></i>
     <a href="https://andywhite.xyz/tags/reasonml/">ReasonML</a>
       <span class="separator">•</span>
     <a href="https://andywhite.xyz/tags/ocaml/">OCaml</a>
@@ -132,6 +156,7 @@
       </header>
 
       <div>
+        
         <p>In <a href="https://andywhite.xyz/posts/2019-10-31-hello-world">my intro post</a> I talked about my background
 and how I started on my journey to learn typed functional programming. I&rsquo;ll
 again preface these posts with a note that I don&rsquo;t have a background in
@@ -142,7 +167,12 @@ coding conventions here that are not completely correct. The purpose of these
 blogs is not to achieve rigorous perfection but to help impart some intuition
 on the topics. If you find any issues with code examples, please let me know,
 and I&rsquo;ll fix them.</p>
-<h1 id="functors">Functors</h1>
+<h1 id="functors">
+  Functors
+  <a class="heading-link" href="#functors">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>In this post, I would like to talk about functors - not <a href="https://v1.realworldocaml.org/v1/en/html/functors.html">OCaml/ReasonML
 module functors</a>, but
 functors as they relate to the <code>map</code> function. I would wager that most
@@ -153,7 +183,12 @@ other type <code>B</code>. If you&rsquo;re lucky, you&rsquo;ve used <code>map</c
 <code>Maybe</code>, <code>Either</code> or <code>Result</code>. If you&rsquo;re really blessed, maybe you&rsquo;ve used it
 in something like a JSON decoder function to transform a decoded number into
 some other type.</p>
-<h1 id="reasonml---a-quick-aside">ReasonML - a quick aside</h1>
+<h1 id="reasonml---a-quick-aside">
+  ReasonML - a quick aside
+  <a class="heading-link" href="#reasonml---a-quick-aside">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>I&rsquo;m going to use the language <a href="https://reasonml.github.io">ReasonML</a> for
 these posts, not because it&rsquo;s the most powerful language around (it&rsquo;s not),
 but because it provides an interesting platform on which to build up some
@@ -196,7 +231,12 @@ been mostly ironed out, and are improving each day.</p>
 OCaml compiler and tools like <a href="https://esy.sh">esy</a> or
 <a href="https://github.com/ocaml/dune">dune</a>. I don&rsquo;t have any experience with these
 native tools, so I won&rsquo;t say anymore about that.</p>
-<h1 id="shameless-plug">Shameless plug</h1>
+<h1 id="shameless-plug">
+  Shameless plug
+  <a class="heading-link" href="#shameless-plug">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>As a side note, I currently work on a set of libraries for
 ReasonML/BuckleScript in the <a href="https://github.com/reazen">Reazen GitHub org</a>.
 Our core &ldquo;standard library replacement&rdquo; library is called
@@ -207,7 +247,12 @@ posts can be seen in action in Relude, and it&rsquo;s underlying library
 out if you are interested. Also, I&rsquo;ll re-emphasize that most of the ideas in
 Relude are not our own - they come from the rich history and ecosystem of
 typed pure functional programming.</p>
-<h1 id="back-to-functors">Back to functors</h1>
+<h1 id="back-to-functors">
+  Back to functors
+  <a class="heading-link" href="#back-to-functors">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>To jump right in, I&rsquo;m going to introduce one way to represent a functor in
 ReasonML and then go from there. In ReasonML, we have the concept of
 <a href="https://ocaml.org/learn/tutorials/modules.html">modules</a>, which are a
@@ -256,7 +301,12 @@ and it would still be the the same concept:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> foo <span style="color:#f92672">=</span> <span style="color:#f92672">(</span>t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">),</span> <span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">)</span> <span style="color:#f92672">=&gt;</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">);</span>
 </code></pre></div><p>Another thing you&rsquo;ll commonly see in FP is the manipulation of function args,
 like using a <code>flip</code> function to turn a function <code>('a, 'b) =&gt; 'c</code> to <code>('b, 'a) =&gt; 'c</code>.</p>
-<h1 id="aside-on-names">Aside on names</h1>
+<h1 id="aside-on-names">
+  Aside on names
+  <a class="heading-link" href="#aside-on-names">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>A very common complaint about learning functional programming is that the
 names of things just don&rsquo;t really have much semantic meaning. Many of the
 names come from cateogry theory and abstract algebra, and sometimes the names
@@ -293,13 +343,23 @@ firehose of unknown words, so I&rsquo;m not trying to brush this off, but just
 trying to set expectations. Just remember, you don&rsquo;t have to understand all
 of this at once! Just to try build up, cement, and apply your knowledge over
 time, and it will grow.</p>
-<h1 id="functor-laws">Functor laws</h1>
+<h1 id="functor-laws">
+  Functor laws
+  <a class="heading-link" href="#functor-laws">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>We now know that a functor deals with a type <code>t('a)</code> and has a function <code>map</code>:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">type</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">);</span>
 <span style="color:#66d9ef">let</span> map<span style="color:#f92672">:</span> <span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">,</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">))</span> <span style="color:#f92672">=&gt;</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>b<span style="color:#f92672">);</span>
 </code></pre></div><p>There are two additional things that we must satisfy in order for something to
 be considered a valid functor: the &ldquo;functor laws.&rdquo;</p>
-<h2 id="first-functor-law---structure-preserving-map">First functor law - structure preserving map</h2>
+<h2 id="first-functor-law---structure-preserving-map">
+  First functor law - structure preserving map
+  <a class="heading-link" href="#first-functor-law---structure-preserving-map">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>The first law requires that the <code>map</code> function cannot change the structure of
 the data type - it can only change the values contained within the functor
 using the <code>'a =&gt; 'b</code> function. This is sometimes called a
@@ -319,7 +379,12 @@ structure), nor shorten (remove structure) the list, etc.</p>
 confident that the <code>map</code> operation will only apply the given function to each
 value contained within your functor, and will not change the structure of your
 data type.</p>
-<h2 id="second-functor-law---composition">Second functor law - composition</h2>
+<h2 id="second-functor-law---composition">
+  Second functor law - composition
+  <a class="heading-link" href="#second-functor-law---composition">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>The second functor law has to do with function composition. Basically, if you have
 a functor <code>t('a)</code>, and two functions that you&rsquo;d like to map:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">let</span> fa<span style="color:#f92672">:</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#f92672">...;</span>
@@ -364,7 +429,12 @@ we have a valid functor, we know that we can make a pretty substantial
 optimization - rather than mapping two different functions over our functor
 in two passes, we can do the same thing in a single pass by composing the
 functions.</p>
-<h2 id="why-the-laws-matter">Why the laws matter</h2>
+<h2 id="why-the-laws-matter">
+  Why the laws matter
+  <a class="heading-link" href="#why-the-laws-matter">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h2>
 <p>The laws exist to make sure we have a concrete definition as to what makes a
 functor a functor. Unfortunately, we can&rsquo;t easily express these laws via the
 ReasonML type system, and this is a common problem with many FP languages. A
@@ -376,7 +446,12 @@ the functors laws for example, and then the test framework will test that
 property or law against your implementation using a set of generated inputs
 to ensure that it passes the law in all cases. I hope to give a more concrete
 example of this in a future blog post.</p>
-<h1 id="the-functor-typeclass-module-type">The FUNCTOR typeclass (module type)</h1>
+<h1 id="the-functor-typeclass-module-type">
+  The FUNCTOR typeclass (module type)
+  <a class="heading-link" href="#the-functor-typeclass-module-type">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Let&rsquo;s acknowledge that the laws are critically important, but we&rsquo;re going to
 just file them away for now, and return to more concrete things. Below is how
 you might <strong>actually</strong> define a functor as a ReasonML module type (remember
@@ -416,7 +491,12 @@ it knows how to do is apply a pure function <code>'a =&gt; 'b</code> to each val
 <code>t('a)</code> to produce a value of type <code>t('b)</code>. (It can&rsquo;t produce values of type
 <code>'b</code> out of thin air either - it doesn&rsquo;t know or care what types <code>'a</code> and
 <code>'b</code> are!).</p>
-<h1 id="list-functor">List functor</h1>
+<h1 id="list-functor">
+  List functor
+  <a class="heading-link" href="#list-functor">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Now let&rsquo;s implement <code>FUNCTOR</code> for <code>list('a)</code>. These implementations are purely
 for demonstration purposes, so no attempt is made to optimize anything. I&rsquo;m going
 to follow a convention of creating a wrapper module named after my main type, like
@@ -478,17 +558,32 @@ recursively to apply the function to the tail list. Nothing is being done to
 shuffle values around, copy them, etc. and if you were to pass the <code>id: 'a =&gt; 'a</code> function to our <code>map</code>, it&rsquo;s pretty clear the list would not be modified.
 The composition law is a little harder to see intuitively, so we&rsquo;ll just
 ignore it for now.</p>
-<h1 id="aside-on-learning-this">Aside on learning this</h1>
+<h1 id="aside-on-learning-this">
+  Aside on learning this
+  <a class="heading-link" href="#aside-on-learning-this">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Now that we&rsquo;ve seen how to implement a <code>FUNCTOR</code> for <code>list('a)</code> (and how easy
 it is!), I&rsquo;d recommend trying to implement functor for some of the types
 below yourself - I found it was very helpful to learn this stuff by going
 through the motions myself, rather than just reading.</p>
-<h1 id="array-functor">Array functor</h1>
+<h1 id="array-functor">
+  Array functor
+  <a class="heading-link" href="#array-functor">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>The <code>array('a)</code> type has a functor, but it&rsquo;s basically exactly the same as
 <code>list('a)</code>, so I&rsquo;m going to skip over it. The only real difference is how
 <code>map</code> is implemented (just because <code>list('a)</code> and <code>array('a)</code> are different
 types), so if you want to give it a shot, go for it!</p>
-<h1 id="option-functor">Option functor</h1>
+<h1 id="option-functor">
+  Option functor
+  <a class="heading-link" href="#option-functor">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Now let&rsquo;s implement <code>FUNCTOR</code> for <code>option('a)</code>. I&rsquo;m going to follow the convention
 of defining a wrapper module for the main type, and aliasing the type <code>t('a)</code>, then
 defining the <code>Functor</code> as a nested submodule of our main module.</p>
@@ -509,7 +604,12 @@ defining the <code>Functor</code> as a nested submodule of our main module.</p>
 super easy. Once again, the first functor law can be seen intuitively.</p>
 <p>Hopefully at this point, if functors were scary before, they are very un-scary
 now. Maybe functors were never that scary to begin with&hellip;</p>
-<h1 id="result-functor">Result functor</h1>
+<h1 id="result-functor">
+  Result functor
+  <a class="heading-link" href="#result-functor">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p><code>Belt.Result.t('a, 'e)</code> is our first example type that doesn&rsquo;t exactly fit
 the <code>t('a)</code> requirement of functor. We can easily implement <code>map</code> as a
 function, because we can just ignore the error <code>'e</code> case, and only map the
@@ -589,7 +689,12 @@ provide you with a higher-level of abstraction, and provide ways to create
 more abstractions on top of them. In a future post, we&rsquo;ll talk about
 applicatives and monads, and then hopefully the power, abstraction, and
 purpose of this will become more clear.</p>
-<h1 id="tree-functor">Tree functor</h1>
+<h1 id="tree-functor">
+  Tree functor
+  <a class="heading-link" href="#tree-functor">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Now let&rsquo;s try another data type: a binary tree. Using recursion with <code>map</code>
 makes this very similar to <code>list('a)</code>, so I&rsquo;ll just jump into the example:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">module</span> <span style="color:#a6e22e">Tree</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
@@ -612,7 +717,12 @@ sub-tree on the right side. A tree with one value would be <code>Node(Leaf, myVa
 tree, and the value at each node is updated with <code>f</code>. As you can see we&rsquo;re
 not modifying the structure of the tree - just visiting (and updating) the
 value at each node with the pure function <code>'a =&gt; 'b</code>.</p>
-<h1 id="remotedata-functor">RemoteData functor</h1>
+<h1 id="remotedata-functor">
+  RemoteData functor
+  <a class="heading-link" href="#remotedata-functor">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>We&rsquo;ve now seen functors for some commonly-used, general data types, but you
 can also define functors for more domain-specific types. Let&rsquo;s look at the
 Elm
@@ -681,7 +791,12 @@ other instances normally with <code>E.t</code>. Beware that module functors are 
 without their costs in ocaml (in module purity, dead code elimination, etc.),
 so sometimes it&rsquo;s better to use more smaller functors, rather than fewer
 larger functors.</p>
-<h1 id="custom-data-type-functor">Custom data type functor</h1>
+<h1 id="custom-data-type-functor">
+  Custom data type functor
+  <a class="heading-link" href="#custom-data-type-functor">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>As we&rsquo;ve seen with <code>RemoteData.t('a, 'e)</code> you can define functors for your
 own domain types, not just the common data types like <code>list('a)</code>,
 <code>option('a)</code>, etc. As you do more functional programming, you&rsquo;ll also start
@@ -700,7 +815,12 @@ map more than one of the polymorphic types, assuming you can still abide by
 the functor laws. The rule of thumb with FP is that someone has likely
 already figured it out, named it, and fully-implemented it, so if you think
 you&rsquo;ve found something interesting, look for prior art.</p>
-<h1 id="function-functor">Function functor</h1>
+<h1 id="function-functor">
+  Function functor
+  <a class="heading-link" href="#function-functor">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Now let&rsquo;s look at something that&rsquo;s not just a plain old static data type: a
 function! Let&rsquo;s consider the function <code>'x =&gt; 'a</code> where <code>'x</code> is some type we
 don&rsquo;t really care about, and <code>'a</code> is the type we care about (sort of like in
@@ -763,7 +883,12 @@ out that the function <code>'x =&gt; 'a</code> is actually a very powerful and u
 construct, especially when we get to the topic of monads. If you want to read
 ahead, search for <a href="https://www.google.com/search?q=reader+monad">reader
 monad</a>.</p>
-<h1 id="function-thats-not-a-covariant-functor">Function that&rsquo;s not a (covariant) functor</h1>
+<h1 id="function-thats-not-a-covariant-functor">
+  Function that&rsquo;s not a (covariant) functor
+  <a class="heading-link" href="#function-thats-not-a-covariant-functor">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>We just looked at the function <code>'x =&gt; 'a</code>, so what about the function <code>'a =&gt; 'x</code>? Let&rsquo;s quickly see if we can implement map for this type:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ocaml" data-lang="ocaml"><span style="color:#66d9ef">module</span> <span style="color:#a6e22e">Function</span> <span style="color:#f92672">=</span> <span style="color:#f92672">{</span>
   <span style="color:#66d9ef">type</span> t<span style="color:#f92672">(</span><span style="color:#66d9ef">&#39;</span>a<span style="color:#f92672">,</span> <span style="color:#66d9ef">&#39;</span>x<span style="color:#f92672">)</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">&#39;</span>a <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">&#39;</span>x<span style="color:#f92672">;</span>
@@ -786,7 +911,12 @@ is called a <strong>contravariant</strong> functor, which looks like this:</p>
 </code></pre></div><p>If you try to implement <code>CONTRAVARIANT</code> for types like <code>option('a)</code> you&rsquo;re
 going to get confused, just like we got confused trying to implement our
 covariant <code>FUNCTOR</code> for <code>'a =&gt; 'x</code>. Try implementing <code>CONTRAVARIANT</code> for <code>'a =&gt; 'x</code> though, and think about function composition again.</p>
-<h1 id="parserdecoder-functor">Parser/decoder functor</h1>
+<h1 id="parserdecoder-functor">
+  Parser/decoder functor
+  <a class="heading-link" href="#parserdecoder-functor">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>So now we&rsquo;ve seen <code>FUNCTOR</code> for <code>'x =&gt; 'a</code> (and mentioned <code>CONTRAVARIANT</code> for
 <code>'a =&gt; 'x</code>, but we won&rsquo;t mention <code>CONTRAVARIANT</code> again in this article), so
 let&rsquo;s see a real-world example of a covariant <code>FUNCTOR</code> for a function.</p>
@@ -926,7 +1056,12 @@ parsing a single value and mapping it with a <code>FUNCTOR</code>, but to decode
 structures like JSON object and arrays, you&rsquo;ll want to use more powerful
 abstractions like <code>Applicative</code> and <code>Monad</code>, which I hope to write a blog
 about soon.</p>
-<h1 id="future-functor">Future functor</h1>
+<h1 id="future-functor">
+  Future functor
+  <a class="heading-link" href="#future-functor">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Let&rsquo;s look at one more real-world example of a <code>FUNCTOR</code> - the <code>Future</code> type
 from <a href="https://github.com/RationalJS/future">RationalJS/future</a>.</p>
 <p>If you&rsquo;ve done any amount of ReasonML, you&rsquo;ve probably had to deal with
@@ -983,7 +1118,12 @@ that can represent both successful and failed computations.</p>
 offensive, if you ask me) abstract type, the <code>Future</code> approach makes both the
 successful value and the error value &ldquo;first-class&rdquo; - you have full control
 over whether and how your async work can fail.</p>
-<h1 id="jspromise-functor">Js.Promise functor</h1>
+<h1 id="jspromise-functor">
+  Js.Promise functor
+  <a class="heading-link" href="#jspromise-functor">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>For one final example, let&rsquo;s implement <code>FUNCTOR</code> for
 <a href="https://reasonml.github.io/docs/en/promise">Js.Promise</a>. <code>Js.Promise</code> is the
 ReasonML binding for the ubiquitous <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">JavaScript
@@ -1028,7 +1168,12 @@ function that lets you inject a pure value into your monadic context, like
 <code>Js.Promise</code> is not the greatest thing to use for explaining functors and
 monads, because <code>then</code> kind of magically does both <code>map</code> and <code>flatMap</code>, but
 it&rsquo;s a familiar example for JavaScript folks.</p>
-<h1 id="what-can-you-do-with-a-functor">What can you do with a FUNCTOR?</h1>
+<h1 id="what-can-you-do-with-a-functor">
+  What can you do with a FUNCTOR?
+  <a class="heading-link" href="#what-can-you-do-with-a-functor">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>There are lots of <code>FUNCTOR</code>s in the wild, and you probably use <code>map</code> on a
 daily basis, but <code>FUNCTOR</code> is not the most powerful abstraction in the world
 of functional programming. You basically use a <code>FUNCTOR</code> when you have some
@@ -1039,7 +1184,12 @@ function is actually a good thing - it gives you a set of well-defined tools
 and constraints, but allows you to abstract over those capabilities, and
 provides you with a principled baseline on which to create more powerful
 abstractions, like <code>Applicative</code>, <code>Monad</code> and all sorts of other stuff.</p>
-<h1 id="functor-extensions-and-operators">FUNCTOR extensions and operators</h1>
+<h1 id="functor-extensions-and-operators">
+  FUNCTOR extensions and operators
+  <a class="heading-link" href="#functor-extensions-and-operators">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Higher-level constructs like <code>FUNCTOR</code> let you implement functions from a
 higher-level of abstraction. In other words, rather than implementing
 map-related functions for each of <code>list('a)</code>, <code>option('a)</code>, <code>Result.t('a, 'e)</code>, etc., we can implement the function once for <code>FUNCTOR</code>, and then all of
@@ -1126,7 +1276,12 @@ suitable for use as a local open.</p>
 and it&rsquo;s use in
 <a href="https://github.com/reazen/relude/blob/master/src/Relude_Option.re">Relude_Option</a>
 (both the Extensions and Infix modules), and many other modules.</p>
-<h1 id="using-functor-as-a-first-class-module">Using FUNCTOR as a first-class module</h1>
+<h1 id="using-functor-as-a-first-class-module">
+  Using FUNCTOR as a first-class module
+  <a class="heading-link" href="#using-functor-as-a-first-class-module">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>ReasonML/OCaml supports the concept of <a href="https://v1.realworldocaml.org/v1/en/html/first-class-modules.html">first-class
 modules</a>,
 but I don&rsquo;t believe you can use <a href="https://discuss.ocaml.org/t/higher-kinded-polymorphism/2192">higher-kinded
@@ -1155,7 +1310,12 @@ OCaml, because of its lack of higher-kinded types.</p>
 <p>This technique does however work for typeclasses that operate on
 non-polymorphic types, like <code>TYPE</code>, <code>SHOW</code> or <code>EQ</code> (which will hopefully be
 covered in another blog post).</p>
-<h1 id="conclusion">Conclusion</h1>
+<h1 id="conclusion">
+  Conclusion
+  <a class="heading-link" href="#conclusion">
+    <i class="fa fa-link" aria-hidden="true"></i>
+  </a>
+</h1>
 <p>Well, that was an extremely long blog post, but I hope it will help plant
 some seeds for someone who might just be starting their FP journey. I hope to
 follow-up this post with a blog about <code>Applicatives</code> and then one about
@@ -1167,6 +1327,7 @@ this, and you have a comment, feel free to open an issue (or pull request)
 here: <a href="https://github.com/andywhite37/blog">https://github.com/andywhite37/blog</a>.</p>
 
       </div>
+
 
       <footer>
         
@@ -1197,21 +1358,52 @@ here: <a href="https://github.com/andywhite37/blog">https://github.com/andywhite
       </footer>
     </article>
 
-    
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [
+          ['$', '$'], ['\\(', '\\)']
+        ],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
   </section>
 
       </div>
 
-      <footer class="footer">
-  <section class="container">
-    
-    
-    
-    
-  </section>
-</footer>
+      
+  <footer class="footer">
+    <section class="container">
+      
+      
+      
+      
+    </section>
+  </footer>
+
 
     </main>
+
+    
+      
+        
+        <script src="https://andywhite.xyz/js/dark-mode.min.0213e1773e6d1c5a644f847c67a6f8abac49a3776e2976f6008038af8c5b76a1.js"></script>
+      
+    
+
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+    
+      <script src="https://andywhite.xyz/js/main.js"></script>
+    
 
     
 <script type="application/javascript">
@@ -1228,6 +1420,15 @@ if (!doNotTrack) {
 </script>
 
 
+    
+
+    
+
+    
+
+    
+
+    
   </body>
 
 </html>
