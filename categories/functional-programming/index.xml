@@ -6,7 +6,17 @@
     <description>Recent content in Functional Programming on Andy White</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 07 Nov 2019 22:28:54 -0700</lastBuildDate><atom:link href="https://andywhite.xyz/categories/functional-programming/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 27 Jan 2021 18:43:19 -0700</lastBuildDate><atom:link href="https://andywhite.xyz/categories/functional-programming/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TypeScript &#43; fp-ts: ReaderTaskEither Foundations</title>
+      <link>https://andywhite.xyz/posts/2021-01-27-rte-foundations/</link>
+      <pubDate>Wed, 27 Jan 2021 18:43:19 -0700</pubDate>
+      
+      <guid>https://andywhite.xyz/posts/2021-01-27-rte-foundations/</guid>
+      <description>ReaderTaskEither&amp;lt;R, E, A&amp;gt; Foundations This post is meant to give some background information on the ReaderTaskEither&amp;lt;R, E, A&amp;gt; type from fp-ts.
+What is a ReaderTaskEither&amp;lt;R, E, A&amp;gt;? To understand ReaderTaskEither&amp;lt;R, E, A&amp;gt; (aka RTE), it&amp;rsquo;s important to understand some of the lower-level fp-ts &amp;ldquo;effect types&amp;rdquo; upon which RTE is built. Note that in fp-ts, some of these types might be encoded slightly differently than below, but the concepts should be the same.</description>
+    </item>
+    
     <item>
       <title>A Layman&#39;s Guide to Applicatives in ReasonML</title>
       <link>https://andywhite.xyz/posts/2019-11-07-a-laymans-guide-to-applicatives-in-reasonml/</link>

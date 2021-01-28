@@ -6,7 +6,34 @@
     <description>Recent content in Tags on Andy White</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 07 Nov 2019 22:28:54 -0700</lastBuildDate><atom:link href="https://andywhite.xyz/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 27 Jan 2021 18:43:19 -0700</lastBuildDate><atom:link href="https://andywhite.xyz/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>fp-ts</title>
+      <link>https://andywhite.xyz/tags/fp-ts/</link>
+      <pubDate>Wed, 27 Jan 2021 18:43:19 -0700</pubDate>
+      
+      <guid>https://andywhite.xyz/tags/fp-ts/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>React</title>
+      <link>https://andywhite.xyz/tags/react/</link>
+      <pubDate>Wed, 27 Jan 2021 18:43:19 -0700</pubDate>
+      
+      <guid>https://andywhite.xyz/tags/react/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TypeScript</title>
+      <link>https://andywhite.xyz/tags/typescript/</link>
+      <pubDate>Wed, 27 Jan 2021 18:43:19 -0700</pubDate>
+      
+      <guid>https://andywhite.xyz/tags/typescript/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Applicatives</title>
       <link>https://andywhite.xyz/tags/applicatives/</link>
