@@ -15,7 +15,7 @@
       <guid>https://andywhite.xyz/posts/2021-01-28-rte-react/</guid>
       <description>ReaderTaskEither&amp;lt;R, E, A&amp;gt; and React    This article is intended to build up some intuitions about the ReaderTaskEither&amp;lt;R, E, A&amp;gt; type from fp-ts and then present some real-world usage guides for using it with React.
 The code from this article is loosely based on some play-around/experimental code here: https://github.com/andywhite37/react-rte-experiment
-Overview    The first thing to note about ReaderTaskEither&amp;lt;R, E, A&amp;gt; is that it provides a ton of built-in functionality for doing all the common operations you&amp;rsquo;d typically want from an &amp;ldquo;effect type.</description>
+I&amp;rsquo;d also recommend some similar posts about functional dependency injection - these articles are centered around F#, but the same concepts apply:</description>
     </item>
     
     <item>
