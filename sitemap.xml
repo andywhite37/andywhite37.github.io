@@ -1,159 +1,115 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
   <url>
     <loc>https://andywhite.xyz/</loc>
     <lastmod>2021-01-28T19:19:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/categories/</loc>
     <lastmod>2021-01-28T19:19:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/tags/fp-ts/</loc>
     <lastmod>2021-01-28T19:19:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/categories/functional-programming/</loc>
     <lastmod>2021-01-28T19:19:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/posts/</loc>
     <lastmod>2021-01-28T19:19:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/tags/react/</loc>
     <lastmod>2021-01-28T19:19:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/categories/software-development/</loc>
     <lastmod>2021-01-28T19:19:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/tags/</loc>
     <lastmod>2021-01-28T19:19:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/tags/typescript/</loc>
     <lastmod>2021-01-28T19:19:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/posts/2021-01-28-rte-react/</loc>
     <lastmod>2021-01-28T19:19:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/posts/2021-01-27-rte-foundations/</loc>
     <lastmod>2021-01-27T18:43:19-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/posts/2019-11-07-a-laymans-guide-to-applicatives-in-reasonml/</loc>
     <lastmod>2019-11-07T22:28:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/tags/applicatives/</loc>
     <lastmod>2019-11-07T22:28:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/tags/functors/</loc>
     <lastmod>2019-11-07T22:28:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/tags/laymans-guide/</loc>
     <lastmod>2019-11-07T22:28:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/tags/ocaml/</loc>
     <lastmod>2019-11-07T22:28:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/tags/reasonml/</loc>
     <lastmod>2019-11-07T22:28:54-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/posts/2019-11-01-a-laymans-guide-to-functors-in-reasonml/</loc>
     <lastmod>2019-11-01T17:50:46-06:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/projects/</loc>
     <lastmod>2019-11-01T13:31:20-06:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/about/</loc>
     <lastmod>2019-11-01T13:17:24-06:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/posts/2019-10-31-hello-world/</loc>
     <lastmod>2019-10-31T21:11:53-06:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://andywhite.xyz/tags/rambling/</loc>
     <lastmod>2019-10-31T21:11:53-06:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
-  
 </urlset>

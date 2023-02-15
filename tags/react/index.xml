@@ -13,7 +13,7 @@
       <pubDate>Thu, 28 Jan 2021 19:19:54 -0700</pubDate>
       
       <guid>https://andywhite.xyz/posts/2021-01-28-rte-react/</guid>
-      <description>ReaderTaskEither&amp;lt;R, E, A&amp;gt; and React    This article is intended to build up some intuitions about the ReaderTaskEither&amp;lt;R, E, A&amp;gt; type from fp-ts and then present some real-world usage guides for using it with React.
+      <description>ReaderTaskEither&amp;lt;R, E, A&amp;gt; and React This article is intended to build up some intuitions about the ReaderTaskEither&amp;lt;R, E, A&amp;gt; type from fp-ts and then present some real-world usage guides for using it with React.
 The code from this article is loosely based on some play-around/experimental code here: https://github.com/andywhite37/react-rte-experiment
 I&amp;rsquo;d also recommend some similar posts about functional dependency injection - these articles are centered around F#, but the same concepts apply:</description>
     </item>
@@ -24,8 +24,8 @@ I&amp;rsquo;d also recommend some similar posts about functional dependency inje
       <pubDate>Wed, 27 Jan 2021 18:43:19 -0700</pubDate>
       
       <guid>https://andywhite.xyz/posts/2021-01-27-rte-foundations/</guid>
-      <description>ReaderTaskEither&amp;lt;R, E, A&amp;gt; Foundations    This post is meant to give some background information on the ReaderTaskEither&amp;lt;R, E, A&amp;gt; type from fp-ts.
-What is a ReaderTaskEither?    To understand ReaderTaskEither&amp;lt;R, E, A&amp;gt; (aka RTE), it&amp;rsquo;s important to understand some of the lower-level fp-ts &amp;ldquo;effect types&amp;rdquo; upon which RTE is built. Note that in fp-ts, some of these types might be encoded slightly differently than below, but the concepts should be the same.</description>
+      <description>ReaderTaskEither&amp;lt;R, E, A&amp;gt; Foundations This post is meant to give some background information on the ReaderTaskEither&amp;lt;R, E, A&amp;gt; type from fp-ts.
+What is a ReaderTaskEither? To understand ReaderTaskEither&amp;lt;R, E, A&amp;gt; (aka RTE), it&amp;rsquo;s important to understand some of the lower-level fp-ts &amp;ldquo;effect types&amp;rdquo; upon which RTE is built. Note that in fp-ts, some of these types might be encoded slightly differently than below, but the concepts should be the same.</description>
     </item>
     
   </channel>
